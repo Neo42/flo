@@ -12,6 +12,13 @@ require('dotenv').config()
 const app = express()
 const port = 4000
 
+app.use(errorHandler())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(methodOverride())
+app.use(errorHandler())
+app.use(express.static(path.join(__dirname, 'public')))
+
 const initApi = (req) => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
     req,
@@ -29,8 +36,6 @@ const linkResolver = (doc) => {
   }
   return urls[type] ?? urls.default
 }
-
-app.use(errorHandler())
 
 app.use((req, res, next) => {
   res.locals.ctx = {
