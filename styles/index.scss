@@ -1,5 +1,9 @@
-$color-white: #fff;
+// Reset
+@import 'modern-css-reset/dist/reset';
 
-.class {
-  color: $color-white;
-}
+// Pull in sass modules
+@import './utils';
+@import './base';
+@import './layout';
+@import './pages';
+@import './components';

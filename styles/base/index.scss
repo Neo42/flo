@@ -1,0 +1,6 @@
+@import './fonts';
+
+body {
+  @include text(16);
+  font-family: $font-suisse-bp;
+}

@@ -1,0 +1,54 @@
+%cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@mixin ratio($height, $width) {
+  font-size: 0;
+  overflow: hidden;
+  position: relative;
+
+  &:after {
+    content: '';
+    width: 100%;
+    display: inline-block;
+    padding-top: $width/ $height * 100%;
+  }
+}
+
+@mixin title($font-size) {
+  @if (
+    $font-size ==
+      20 or
+      $font-size ==
+      53 or
+      $font-size ==
+      60 or
+      $font-size ==
+      100 or
+      $font-size ==
+      120 or
+      $font-size ==
+      200
+  ) {
+    font-family: $font-george-x;
+    font-size: '#{$font-size / 10} rem';
+  } @else {
+    @warn 'Wrong font size. Choose between 20, 53, 60, 100, 120, or 200.';
+  }
+}
+
+@mixin text($font-size) {
+  @if ($font-size == 12 or $font-size == 14 or $font-size == 16) {
+    @if ($font-size == 16) {
+      font-weight: 300;
+    }
+    font-size: '#{$font-size / 10} rem';
+  } @else {
+    @warn 'Wrong font size. Choose between 12, 14 or 16.';
+  }
+}
