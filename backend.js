@@ -1,29 +1,129 @@
+const methodOverride = require('method-override')
+const bodyParser = require('body-parser')
+const Prismic = require('@prismicio/client')
+const PrismicDOM = require('prismic-dom')
+const logger = require('morgan')
+const errorHandler = require('errorHandler')
+const express = require('express')
+const path = require('path')
+
 require('dotenv').config()
 
-const path = require('path')
-const express = require('express')
 const app = express()
 const port = 4000
+
+const initApi = (req) => {
+  return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
+    req,
+    accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+  })
+}
+
+const linkResolver = (doc) => {
+  const {type, slug} = doc
+  const urls = {
+    product: `/detail/${slug}`,
+    collection_set: '/collections',
+    about: `/about`,
+    default: '/',
+  }
+  return urls[type] ?? urls.default
+}
+
+app.use(errorHandler())
+
+app.use((req, res, next) => {
+  res.locals.ctx = {
+    endpoint: process.env.PRISMIC_ENDPOINT,
+    linkResolver: linkResolver,
+  }
+
+  res.locals.PrismicDOM = PrismicDOM
+  res.locals.Link = linkResolver
+  res.locals.Numbers = (index) =>
+    index === 0
+      ? 'One'
+      : index === 1
+      ? 'Two'
+      : index === 2
+      ? 'three'
+      : index === 3
+      ? 'Four'
+      : ''
+
+  next()
+})
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.get('/', (_, res) => {
-  res.render('pages/home')
+const handleRequest = async (
+  req,
+  {home, collections, about, product} = {
+    home: false,
+    about: false,
+    collections: false,
+    product: false,
+  },
+) => {
+  const api = await initApi(req)
+  return {
+    meta: await api.getSingle('meta'),
+    loader: await api.getSingle('loader'),
+    navigation: await api.getSingle('navigation'),
+    home: home && (await api.getSingle('home')),
+    about: about && (await api.getSingle('about')),
+    collections:
+      collections &&
+      (
+        await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+          fetchLinks: 'product.image',
+        })
+      ).results,
+    product:
+      product &&
+      (await api.getByUID('product', req.params.uid, {
+        fetchLinks: 'collection.title',
+      })),
+  }
+}
+
+app.get('/', async (req, res) => {
+  res.render(
+    'pages/home',
+    await handleRequest(req, {
+      home: true,
+      collections: true,
+    }),
+  )
 })
 
-app.get('/about', (_, res) => {
-  res.render('pages/about')
+app.get('/about', async (req, res) => {
+  res.render(
+    'pages/about',
+    await handleRequest(req, {
+      about: true,
+    }),
+  )
 })
 
-app.get('/detail/:uid', (_, res) => {
-  res.render('pages/detail')
+app.get('/collections', async (req, res) => {
+  res.render(
+    'pages/collections',
+    await handleRequest(req, {
+      home: true,
+      collections: true,
+    }),
+  )
 })
 
-app.get('/collections', (_, res) => {
-  res.render('pages/collections')
+app.get('/detail/:uid', async (req, res) => {
+  res.render(
+    'pages/detail',
+    await handleRequest(req, {
+      product: true,
+    }),
+  )
 })
 
-app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`),
-)
+app.listen(port, () => console.log(`App listening at http://localhost:${port}`))
