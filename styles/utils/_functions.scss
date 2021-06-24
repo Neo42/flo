@@ -2,7 +2,7 @@
   @if index($z-indexes, $name) {
     @return (length($z-indexes)-index($z-indexes, $name)) + 1;
   } @else {
-    @warn 'There is no item "#{$name}" in this list. Choose one from #{$z-indexes}';
+    @error 'There is no item "#{$name}" in this list. Choose one from #{$z-indexes}';
     @return null;
   }
 }

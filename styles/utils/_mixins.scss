@@ -20,35 +20,22 @@
   }
 }
 
-@mixin title($font-size) {
-  @if (
-    $font-size ==
-      20 or
-      $font-size ==
-      53 or
-      $font-size ==
-      60 or
-      $font-size ==
-      100 or
-      $font-size ==
-      120 or
-      $font-size ==
-      200
-  ) {
+@mixin get-title($font-size) {
+  @if index((20 53 60 100 120 200), $font-size) {
     font-family: $font-george-x;
     font-size: '#{$font-size / 10} rem';
   } @else {
-    @warn 'Wrong font size. Choose between 20, 53, 60, 100, 120, or 200.';
+    @error 'Wrong font size. Choose between 20, 53, 60, 100, 120, or 200.';
   }
 }
 
-@mixin text($font-size) {
-  @if ($font-size == 12 or $font-size == 14 or $font-size == 16) {
+@mixin get-text($font-size) {
+  @if index((12 14 16), $font-size) {
     @if ($font-size == 16) {
       font-weight: 300;
     }
     font-size: '#{$font-size / 10} rem';
   } @else {
-    @warn 'Wrong font size. Choose between 12, 14 or 16.';
+    @error 'Wrong font size. Choose between 12, 14 or 16.';
   }
 }
