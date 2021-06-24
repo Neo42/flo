@@ -1,10 +1,11 @@
+@use "sass:math";
+
 %cover {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  object-fit: cover;
 }
 
 @mixin ratio($height, $width) {
@@ -23,7 +24,7 @@
 @mixin get-title($font-size) {
   @if index((20 53 60 100 120 200), $font-size) {
     font-family: $font-george-x;
-    font-size: '#{$font-size / 10} rem';
+    font-size: '#{math.div($font-size , 10)} rem';
   } @else {
     @error 'Wrong title font size. Choose between 20, 53, 60, 100, 120, or 200.';
   }
@@ -34,7 +35,7 @@
     @if ($font-size == 16) {
       font-weight: 300;
     }
-    font-size: '#{$font-size / 10} rem';
+    font-size: '#{math.div($font-size , 10)} rem';
   } @else {
     @error 'Wrong text font size. Choose between 12, 14 or 16.';
   }
