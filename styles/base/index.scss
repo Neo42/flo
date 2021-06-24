@@ -1,6 +1,21 @@
 @import './fonts';
 
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
 body {
-  @include get-text(16);
-  font-family: $font-suisse-bp;
+  @include text(16);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
 }

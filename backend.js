@@ -16,7 +16,7 @@ app.use(errorHandler())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride())
-app.use(errorHandler())
+app.use(logger('combined'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 const initApi = (req) => {
