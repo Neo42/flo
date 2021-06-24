@@ -8,6 +8,12 @@
   width: 100%;
 }
 
+%center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin ratio($height, $width) {
   font-size: 0;
   overflow: hidden;
@@ -21,21 +27,28 @@
   }
 }
 
-@mixin get-title($font-size) {
-  @if index((20 53 60 100 120 200), $font-size) {
+@mixin title($font-size) {
+  @if index((20 30 53 60 100 120 200), $font-size) {
     font-family: $font-george-x;
-    font-size: '#{math.div($font-size , 10)} rem';
+    font-size: #{math.div($font-size, 10)}rem;
+    font-weight: normal;
+    @if $font-size == 120 {
+      line-height: 0.82;
+    }
   } @else {
     @error 'Wrong title font size. Choose between 20, 53, 60, 100, 120, or 200.';
   }
 }
 
-@mixin get-text($font-size) {
+@mixin text($font-size) {
   @if index((12 14 16), $font-size) {
     @if ($font-size == 16) {
       font-weight: 300;
+      letter-spacing: 0.03rem;
+      line-height: 1.5;
     }
-    font-size: '#{math.div($font-size , 10)} rem';
+    font-family: $font-suisse-bp;
+    font-size: #{math.div($font-size, 10)}rem;
   } @else {
     @error 'Wrong text font size. Choose between 12, 14 or 16.';
   }

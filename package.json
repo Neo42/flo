@@ -2,7 +2,7 @@
   "name": "x",
   "version": "1.0.0",
   "scripts": {
-    "frontend:dev": "webpack serve --progress --config ./webpack/webpack.dev.js",
+    "frontend:dev": "webpack serve --liveReload --progress --config ./webpack/webpack.dev.js",
     "frontend:build": "webpack --progress --config ./webpack/webpack.prod.js",
     "backend:dev": "nodemon backend.js",
     "backend:build": "node backend.js",

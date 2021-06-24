@@ -1,32 +1,77 @@
 .detail {
+  @extend %cover;
+  @extend %center;
+  background-color: $color-quicksand;
+  color: $color-white;
 }
 .detail__wrapper {
+  display: flex;
+  align-items: center;
 }
 .detail__media {
+  position: relative;
+  width: 55.4rem;
+  height: 78.2rem;
 }
 .detail__media__image {
+  @extend %cover;
+  object-fit: cover;
 }
 .detail__information {
+  padding-left: 8.2rem;
 }
 .detail__information__collection {
+  @include text(12);
+  margin-bottom: 4rem;
+  text-transform: uppercase;
 }
 .detail__information__title {
+  @include title(120);
+  max-width: 60rem;
 }
 .detail__information__content {
+  padding-left: 18rem;
 }
 .detail__information__highlights {
+  margin-top: 6rem;
 }
 .detail__information__highlight {
+  display: flex;
+  align-items: center;
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
 }
 .detail__information__highlight__icon {
+  width: 4rem;
+  height: 4rem;
+  border: 1px solid;
+  border-radius: 50%;
+  margin-right: 3.75rem;
+}
+.detail__information__highlight__text {
+  @include text(16);
 }
 .detail__information__list {
+  margin-top: 4rem;
 }
 .detail__information__item {
+  display: flex;
+  &:not(:first-child) {
+    margin-top: 4rem;
+  }
 }
 .detail__information__item__title {
+  @include text(12);
+  padding-right: 2.5rem;
+  width: 10rem;
 }
 .detail__information__item__description {
+  @include text(16);
+  max-width: 44rem;
 }
 .detail__information__link {
+  @include title(30);
+  display: inline-block;
+  margin-top: 3rem;
 }
