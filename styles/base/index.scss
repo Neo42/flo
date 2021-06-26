@@ -9,11 +9,19 @@
 html {
   font-size: calc(100vw / 1920 * 10);
   line-height: 1;
+
+  @include media('<phone') {
+    font-size: calc(100vw / 750 * 10);
+  }
 }
 
 body {
   @include text(16);
-  line-height: 1;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 a {

@@ -6,18 +6,23 @@
   background-color: $color-contessa;
   color: $color-linen;
   display: none;
-  // display: flex;
   text-align: center;
   z-index: z('loader');
 }
+
 .loader__text {
   @include title(53);
   max-width: 66rem;
 }
+
 .loader__number {
   @include text(14);
   position: absolute;
   left: 50%;
   bottom: 7.3rem;
   transform: translateX(-50%);
+
+  @include media('<phone') {
+    font-size: 2.4rem;
+  }
 }

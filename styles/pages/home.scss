@@ -5,6 +5,7 @@
   background-color: $color-contessa;
   color: $color-linen;
   text-align: center;
+
   &::before,
   &::after {
     content: '';
@@ -31,23 +32,31 @@
     );
   }
 }
+
 .home__wrapper {
 }
+
 .home__titles {
   @extend %vertical-titles;
 }
+
 .home__titles__label {
   @include vertical-titles('label');
 }
+
 .home__titles__title {
   @include vertical-titles('title');
 }
+
 .home__gallery {
   @extend %cover;
+  visibility: hidden;
 }
+
 .home__gallery__media {
   position: absolute;
 }
+
 .home__gallery__media__image {
 }
 a.home__link {
@@ -64,6 +73,12 @@ a.home__link {
   text-transform: uppercase;
   letter-spacing: 0.05rem;
   z-index: 2;
+
+  @include media('<phone') {
+    width: 55rem;
+    height: 13.7rem;
+    bottom: 7.5rem;
+  }
 }
 
 .home__link__icon {

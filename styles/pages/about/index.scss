@@ -6,11 +6,17 @@
   background-color: $color-crayola;
   color: $color-arsenic;
 }
+
 .about__wrapper {
 }
+
 .about__title {
   @include title(100);
   margin: auto;
   max-width: 124rem;
   text-align: center;
+
+  @include media('<phone') {
+    max-width: 67.7rem;
+  }
 }

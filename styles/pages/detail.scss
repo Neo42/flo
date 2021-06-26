@@ -3,81 +3,136 @@
   @extend %center;
   background-color: $color-quicksand;
   color: $color-linen;
+
+  @include media('<phone') {
+    height: auto;
+  }
 }
+
 .detail__wrapper {
   display: flex;
   align-items: center;
+
+  @include media('<phone') {
+    padding: 15rem 0 31.5rem;
+    display: block;
+    width: 66.1rem;
+    margin: auto;
+  }
 }
+
 .detail__media {
   position: relative;
   width: 55.4rem;
   height: 78.2rem;
+
+  @include media('<phone') {
+    width: 100%;
+    height: 93.4rem;
+    margin: 0 auto 7.8rem;
+  }
 }
+
 .detail__media__image {
   @extend %cover;
   object-fit: cover;
 }
+
 .detail__information {
   padding-left: 8.2rem;
+
+  @include media('<phone') {
+    padding-left: 0;
+  }
 }
+
 .detail__information__collection {
   @include text(12);
   margin-bottom: 4rem;
   text-transform: uppercase;
 }
+
 .detail__information__title {
   @include title(120);
   max-width: 60rem;
 }
+
 .detail__information__content {
   padding-left: 18rem;
+
+  @include media('<phone') {
+    padding-left: 0;
+  }
 }
+
 .detail__information__highlights {
   margin-top: 6rem;
 }
+
 .detail__information__highlight {
   display: flex;
   align-items: center;
+
   &:not(:first-child) {
     margin-top: 4rem;
   }
 }
+
 .detail__information__highlight__icon {
   width: 4rem;
   height: 4rem;
-  border: 1px solid;
   border-radius: 50%;
   margin-right: 3.75rem;
+
+  @include media('<phone') {
+    width: 9.2rem;
+    height: 9.2rem;
+    margin-right: 5.8rem;
+  }
 }
+
 .detail__information__highlight__text {
   @include text(16);
 }
+
 .detail__information__list {
   margin-top: 4rem;
 }
+
 .detail__information__item {
   display: flex;
+
   &:not(:first-child) {
     margin-top: 4rem;
   }
 }
+
 .detail__information__item__title {
   @include text(12);
-  font-weight: 100;
-  padding-right: 2.5rem;
   width: 10rem;
+  padding-right: 2.5rem;
+  font-weight: 100;
+
+  @include media('<phone') {
+    width: 15rem;
+    padding-right: 5rem;
+  }
 }
+
 .detail__information__item__description {
   @include text(16);
   letter-spacing: 0.03rem;
   max-width: 44rem;
 }
+
 .detail__information__link {
   @include title(30);
   display: inline-block;
   margin-top: 3rem;
 }
+
 .detail__button {
+  @include text(14);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +143,14 @@
   width: 12.4rem;
   height: 6rem;
   z-index: 2;
+
+  @include media('<phone') {
+    bottom: 12rem;
+    width: 26.8rem;
+    height: 13rem;
+  }
 }
+
 .detail__button__icon {
   @extend %cover;
 }
