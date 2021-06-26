@@ -14,6 +14,15 @@
   justify-content: center;
 }
 
+%vertical-titles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
 @mixin ratio($height, $width) {
   font-size: 0;
   overflow: hidden;
@@ -27,12 +36,15 @@
   }
 }
 
-@mixin title($font-size) {
-  @if index((20 30 53 60 100 120 200), $font-size) {
+@mixin title($value) {
+  @if index((20 30 53 60 100 120 200), $value) {
     font-family: $font-george-x;
-    font-size: #{math.div($font-size, 10)}rem;
+    font-size: #{math.div($value, 10)}rem;
     font-weight: normal;
-    @if $font-size == 120 {
+    @if index((53 100), $value) {
+      line-height: 1;
+    }
+    @if $value == 120 {
       line-height: 0.82;
     }
   } @else {
@@ -40,16 +52,31 @@
   }
 }
 
-@mixin text($font-size) {
-  @if index((12 14 16), $font-size) {
-    @if ($font-size == 16) {
+@mixin text($value) {
+  @if index((12 14 16), $value) {
+    @if $value == 16 {
       font-weight: 300;
-      letter-spacing: 0.03rem;
       line-height: 1.5;
     }
     font-family: $font-suisse-bp;
-    font-size: #{math.div($font-size, 10)}rem;
+    font-size: #{math.div($value, 10)}rem;
   } @else {
     @error 'Wrong text font size. Choose between 12, 14 or 16.';
+  }
+}
+
+@mixin vertical-titles($suffix) {
+  @if $suffix == 'title' {
+    @include title(200);
+    padding-top: 2rem;
+  } @else if $suffix == 'label' {
+    @include text(12);
+    margin: 0 3rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    transform: rotate(90deg);
+  } @else {
+    @error 'Wrong vertical title suffix. Choose between \'title\' or \'label\'.';
   }
 }

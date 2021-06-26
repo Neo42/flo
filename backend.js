@@ -116,8 +116,8 @@ app.get('/collections', async (req, res) => {
   res.render(
     'pages/collections',
     await handleRequest(req, {
-      home: true,
       collections: true,
+      home: true,
     }),
   )
 })
@@ -127,6 +127,7 @@ app.get('/detail/:uid', async (req, res) => {
     'pages/detail',
     await handleRequest(req, {
       product: true,
+      home: true,
     }),
   )
 })

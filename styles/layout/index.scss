@@ -1,14 +1,26 @@
 .navigation {
-}
-.navigation__wrapper {
+  @extend %cover;
+  z-index: z('navigation');
+  color: $color-linen;
 }
 .navigation__link {
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+  width: 12.8rem;
+  height: 2rem;
+  font-size: 0;
 }
 .navigation__link__icon {
+  display: block;
 }
 .navigation__list {
 }
 .navigation__list__item {
+  position: absolute;
+  right: 4rem;
+  top: 4rem;
 }
 .navigation__list__link {
+  @include title(20);
 }

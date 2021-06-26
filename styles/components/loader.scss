@@ -4,8 +4,11 @@
   @extend %cover;
   @extend %center;
   background-color: $color-contessa;
-  color: $color-white;
+  color: $color-linen;
   display: none;
+  // display: flex;
+  text-align: center;
+  z-index: z('loader');
 }
 .loader__text {
   @include title(53);

@@ -1,5 +1,5 @@
 {
-  "name": "x",
+  "name": "slick",
   "version": "1.0.0",
   "scripts": {
     "frontend:dev": "webpack serve --liveReload --progress --config ./webpack/webpack.dev.js",
@@ -7,8 +7,7 @@
     "backend:dev": "nodemon backend.js",
     "backend:build": "node backend.js",
     "start": "run-p frontend:dev backend:dev",
-    "prepare": "husky install",
-    "sm": "sass-migrator division **/*.scss"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "babel-loader": "^8.2.2",

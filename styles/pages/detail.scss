@@ -2,7 +2,7 @@
   @extend %cover;
   @extend %center;
   background-color: $color-quicksand;
-  color: $color-white;
+  color: $color-linen;
 }
 .detail__wrapper {
   display: flex;
@@ -63,15 +63,32 @@
 }
 .detail__information__item__title {
   @include text(12);
+  font-weight: 100;
   padding-right: 2.5rem;
   width: 10rem;
 }
 .detail__information__item__description {
   @include text(16);
+  letter-spacing: 0.03rem;
   max-width: 44rem;
 }
 .detail__information__link {
   @include title(30);
   display: inline-block;
   margin-top: 3rem;
+}
+.detail__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  bottom: 5rem;
+  transform: translateX(-50%);
+  width: 12.4rem;
+  height: 6rem;
+  z-index: 2;
+}
+.detail__button__icon {
+  @extend %cover;
 }
