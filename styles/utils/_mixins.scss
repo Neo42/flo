@@ -36,64 +36,77 @@
   }
 }
 
-@mixin title($value) {
-  @if index((20 30 53 60 100 120 200), $value) {
-    font-family: $font-george-x;
-    font-size: #{math.div($value, 10)}rem;
-    font-weight: normal;
-    @if $value == 20 {
-      @include media('<phone') {
-        font-size: 4.8rem;
-      }
-    } @else if $value == 30 {
-      @include media('<phone') {
-        font-size: 5.2rem;
-      }
-    } @else if index((53 100), $value) {
-      line-height: 1;
-      @if $value == 100 {
-        @include media('<phone') {
-          font-size: 12rem;
-        }
-      }
-    } @else if $value == 120 {
-      line-height: 0.82;
+@mixin title($number) {
+  @if type-of($number) != number {
+    @error 'title requires an argument of type number';
+  }
+  @if not index((20 30 53 60 100 120 200), $number) {
+    @error 'Wrong title font size. Choose between 20, 53, 60, 100, 120, or 200.';
+  }
 
+  font-family: $font-george-x;
+  font-size: #{math.div($number, 10)}rem;
+  font-weight: normal;
+  @if $number == 20 {
+    @include media('<phone') {
+      font-size: 4.8rem;
+    }
+  } @else if $number == 30 {
+    @include media('<phone') {
+      font-size: 5.2rem;
+    }
+  } @else if index((53 100), $number) {
+    line-height: 1;
+    @if $number == 100 {
       @include media('<phone') {
-        font-size: 18rem;
+        font-size: 12rem;
       }
     }
-  } @else {
-    @error 'Wrong title font size. Choose between 20, 53, 60, 100, 120, or 200.';
+  } @else if $number == 120 {
+    line-height: 0.82;
+
+    @include media('<phone') {
+      font-size: 18rem;
+    }
   }
 }
 
-@mixin text($value) {
-  @if index((12 14 16), $value) {
-    font-family: $font-suisse-bp;
-    font-size: #{math.div($value, 10)}rem;
-    @if $value == 12 {
-      @include media('<phone') {
-        font-size: 3rem;
-      }
-    } @else if $value == 14 {
-      @include media('<phone') {
-        font-size: 3rem;
-      }
-    } @else if $value == 16 {
-      font-weight: 300;
-      line-height: 1.5;
-
-      @include media('<phone') {
-        font-size: 2.8rem;
-      }
-    }
-  } @else {
+@mixin text($number) {
+  @if type-of($number) != number {
+    @error 'text requires an argument of type number';
+  }
+  @if not index((12 14 16), $number) {
     @error 'Wrong text font size. Choose between 12, 14 or 16.';
+  }
+
+  font-family: $font-suisse-bp;
+  font-size: #{math.div($number, 10)}rem;
+  @if $number == 12 {
+    @include media('<phone') {
+      font-size: 3rem;
+    }
+  } @else if $number == 14 {
+    @include media('<phone') {
+      font-size: 3rem;
+    }
+  } @else if $number == 16 {
+    font-weight: 300;
+    line-height: 1.5;
+
+    @include media('<phone') {
+      font-size: 2.8rem;
+    }
   }
 }
 
 @mixin vertical-titles($suffix) {
+  @if type-of($suffix) != string {
+    @error 'vertical-titles requires an argument of type string';
+  }
+  @if not index(('title', 'label'), $suffix) {
+    @error 'Wrong vertical title suffix. Choose between \'title\' or \'label\'.';
+  }
+
   @if $suffix == 'title' {
     @include title(200);
     padding-top: 2rem;
@@ -108,7 +121,5 @@
     @include media('<phone') {
       font-size: 1.2rem;
     }
-  } @else {
-    @error 'Wrong vertical title suffix. Choose between \'title\' or \'label\'.';
   }
 }
