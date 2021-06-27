@@ -90,15 +90,27 @@
 .collections__mobile__item {
   width: 100vw;
   padding-left: 5rem;
+
+  @include media('>=phone') {
+    display: none;
+  }
 }
 
 .collections__mobile__item__label {
   font-size: 2rem;
   letter-spacing: 0.1rem;
   text-transform: uppercase;
+
+  @include media('>=phone') {
+    display: none;
+  }
 }
 
 .collections__mobile__item__title {
   font-family: $font-george-x;
   font-size: 12rem;
+
+  @include media('>=phone') {
+    display: none;
+  }
 }
