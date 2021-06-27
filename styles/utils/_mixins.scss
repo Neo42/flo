@@ -99,15 +99,15 @@
   }
 }
 
-@mixin vertical-titles($type) {
-  @if type-of($type) != string {
+@mixin vertical-titles($part) {
+  @if type-of($part) != string {
     @error 'vertical-titles requires an argument of type string';
   }
-  @if not index(('title', 'label'), $type) {
+  @if not index(('title', 'label'), $part) {
     @error 'Wrong vertical title type. Choose between \'title\' or \'label\'.';
   }
 
-  @if $type == 'title' {
+  @if $part == 'title' {
     @include title(200);
     padding-top: 2rem;
   } @else {

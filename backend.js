@@ -26,8 +26,7 @@ const initApi = (req) => {
   })
 }
 
-const linkResolver = (doc) => {
-  const {type, slug} = doc
+const linkResolver = ({type, slug}) => {
   const urls = {
     product: `/detail/${slug}`,
     collection_set: '/collections',
@@ -37,7 +36,7 @@ const linkResolver = (doc) => {
   return urls[type] ?? urls.default
 }
 
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   res.locals.ctx = {
     endpoint: process.env.PRISMIC_ENDPOINT,
     linkResolver: linkResolver,
@@ -62,43 +61,47 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-const handleRequest = async (
+const handleRequest = async ({
   req,
-  {home, collections, about, product} = {
+  config: {home, collections, about, product} = {
     home: false,
     about: false,
     collections: false,
     product: false,
   },
-) => {
+}) => {
   const api = await initApi(req)
-  return {
+  const customResponse = {
     meta: await api.getSingle('meta'),
     loader: await api.getSingle('loader'),
     navigation: await api.getSingle('navigation'),
-    home: home && (await api.getSingle('home')),
-    about: about && (await api.getSingle('about')),
+    home: !!home && (await api.getSingle('home')),
+    about: !!about && (await api.getSingle('about')),
     collections:
-      collections &&
+      !!collections &&
       (
         await api.query(Prismic.Predicates.at('document.type', 'collection'), {
           fetchLinks: 'product.image',
         })
       ).results,
     product:
-      product &&
+      !!product &&
       (await api.getByUID('product', req.params.uid, {
         fetchLinks: 'collection.title',
       })),
   }
+  return customResponse
 }
 
 app.get('/', async (req, res) => {
   res.render(
     'pages/home',
-    await handleRequest(req, {
-      home: true,
-      collections: true,
+    await handleRequest({
+      req,
+      config: {
+        home: true,
+        collections: true,
+      },
     }),
   )
 })
@@ -106,8 +109,11 @@ app.get('/', async (req, res) => {
 app.get('/about', async (req, res) => {
   res.render(
     'pages/about',
-    await handleRequest(req, {
-      about: true,
+    await handleRequest({
+      req,
+      config: {
+        about: true,
+      },
     }),
   )
 })
@@ -115,9 +121,12 @@ app.get('/about', async (req, res) => {
 app.get('/collections', async (req, res) => {
   res.render(
     'pages/collections',
-    await handleRequest(req, {
-      collections: true,
-      home: true,
+    await handleRequest({
+      req,
+      config: {
+        collections: true,
+        home: true,
+      },
     }),
   )
 })
@@ -125,9 +134,12 @@ app.get('/collections', async (req, res) => {
 app.get('/detail/:uid', async (req, res) => {
   res.render(
     'pages/detail',
-    await handleRequest(req, {
-      product: true,
-      home: true,
+    await handleRequest({
+      req,
+      config: {
+        product: true,
+        home: true,
+      },
     }),
   )
 })
