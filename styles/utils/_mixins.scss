@@ -89,7 +89,7 @@
     @include media('<phone') {
       font-size: 3rem;
     }
-  } @else if $number == 16 {
+  } @else {
     font-weight: 300;
     line-height: 1.5;
 
@@ -110,7 +110,7 @@
   @if $suffix == 'title' {
     @include title(200);
     padding-top: 2rem;
-  } @else if $suffix == 'label' {
+  } @else {
     @include text(12);
     margin: 0 3rem;
     text-align: center;
