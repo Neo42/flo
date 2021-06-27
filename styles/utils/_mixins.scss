@@ -36,33 +36,33 @@
   }
 }
 
-@mixin title($number) {
-  @if type-of($number) != number {
+@mixin title($size) {
+  @if type-of($size) != number {
     @error 'title requires an argument of type number';
   }
-  @if not index((20 30 53 60 100 120 200), $number) {
+  @if not index((20 30 53 60 100 120 200), $size) {
     @error 'Wrong title font size. Choose between 20, 53, 60, 100, 120, or 200.';
   }
 
   font-family: $font-george-x;
-  font-size: #{math.div($number, 10)}rem;
+  font-size: #{math.div($size, 10)}rem;
   font-weight: normal;
-  @if $number == 20 {
+  @if $size == 20 {
     @include media('<phone') {
       font-size: 4.8rem;
     }
-  } @else if $number == 30 {
+  } @else if $size == 30 {
     @include media('<phone') {
       font-size: 5.2rem;
     }
-  } @else if index((53 100), $number) {
+  } @else if index((53 100), $size) {
     line-height: 1;
-    @if $number == 100 {
+    @if $size == 100 {
       @include media('<phone') {
         font-size: 12rem;
       }
     }
-  } @else if $number == 120 {
+  } @else if $size == 120 {
     line-height: 0.82;
 
     @include media('<phone') {
@@ -71,21 +71,21 @@
   }
 }
 
-@mixin text($number) {
-  @if type-of($number) != number {
+@mixin text($size) {
+  @if type-of($size) != number {
     @error 'text requires an argument of type number';
   }
-  @if not index((12 14 16), $number) {
+  @if not index((12 14 16), $size) {
     @error 'Wrong text font size. Choose between 12, 14 or 16.';
   }
 
   font-family: $font-suisse-bp;
-  font-size: #{math.div($number, 10)}rem;
-  @if $number == 12 {
+  font-size: #{math.div($size, 10)}rem;
+  @if $size == 12 {
     @include media('<phone') {
       font-size: 3rem;
     }
-  } @else if $number == 14 {
+  } @else if $size == 14 {
     @include media('<phone') {
       font-size: 3rem;
     }
@@ -99,15 +99,15 @@
   }
 }
 
-@mixin vertical-titles($suffix) {
-  @if type-of($suffix) != string {
+@mixin vertical-titles($type) {
+  @if type-of($type) != string {
     @error 'vertical-titles requires an argument of type string';
   }
-  @if not index(('title', 'label'), $suffix) {
-    @error 'Wrong vertical title suffix. Choose between \'title\' or \'label\'.';
+  @if not index(('title', 'label'), $type) {
+    @error 'Wrong vertical title type. Choose between \'title\' or \'label\'.';
   }
 
-  @if $suffix == 'title' {
+  @if $type == 'title' {
     @include title(200);
     padding-top: 2rem;
   } @else {
