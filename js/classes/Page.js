@@ -54,7 +54,6 @@ export default class Page {
   }
 
   show() {
-    if (!this.rootElement) return
     return new Promise((resolve) =>
       GSAP.from(this.rootElement, {
         autoAlpha: 0,
@@ -64,7 +63,6 @@ export default class Page {
   }
 
   hide() {
-    if (this.rootElement) return
     return new Promise((resolve) =>
       GSAP.from(this.rootElement, {
         autoAlpha: 0,

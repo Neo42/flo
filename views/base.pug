@@ -1,4 +1,3 @@
-
 block variables
 doctype
 
@@ -35,7 +34,6 @@ html(lang='en')
     include ./partials/loader
     include ./partials/navigation
     .content#content(data-template=template)
+      block content
 
-block content
-
-  script(src='main.js')
+    script(src='main.js')
