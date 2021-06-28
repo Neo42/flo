@@ -5,14 +5,18 @@
   @extend %center;
   background-color: $color-contessa;
   color: $color-linen;
-  display: none;
   text-align: center;
   z-index: z('loader');
 }
 
 .loader__text {
-  @include title(53);
   max-width: 66rem;
+  @include title(53);
+
+  span {
+    display: inline-block;
+    overflow: hidden;
+  }
 }
 
 .loader__number {
@@ -21,8 +25,13 @@
   left: 50%;
   bottom: 7.3rem;
   transform: translateX(-50%);
+  overflow: hidden;
 
   @include media('<phone') {
     font-size: 2.4rem;
   }
+}
+
+.loader__number__text {
+  display: inline-block;
 }

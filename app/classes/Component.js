@@ -1,30 +1,31 @@
-import GSAP from 'gsap'
+import EventEmitter from 'events'
 import {isPlainObject, isValidHtml} from '../utils'
 
 const doesExistInDocument = (selectedElement) =>
   !!document.querySelectorAll(selectedElement).length
 
-export default class Page {
+export default class Component extends EventEmitter {
   constructor(
-    {rootSelector, selectedElements, id} = {
+    {rootSelector, selectedElements} = {
       rootSelector: null,
       selectedElements: null,
-      id: null,
     },
   ) {
-    if (rootSelector === null || selectedElements === null || id === null) {
-      throw new Error('Page ReferenceError: Init arguments missing')
+    if (rootSelector === null || selectedElements === null) {
+      throw new Error('Component ReferenceError: Init arguments missing')
     }
 
     if (!isPlainObject(selectedElements)) {
       throw new Error(
-        `Page TypeError: selectedElements must be a plain object.`,
+        `Component TypeError: selectedElements must be a plain object.`,
       )
     }
 
-    this.selectedElements = {...selectedElements}
-    this.id = id
+    super()
+
     this.rootSelector = rootSelector
+    this.selectedElements = {...selectedElements}
+    this.create()
   }
 
   create() {
@@ -53,27 +54,7 @@ export default class Page {
     })
   }
 
-  show() {
-    return new Promise((resolve) =>
-      GSAP.fromTo(
-        this.rootElement,
-        {
-          autoAlpha: 0,
-        },
-        {
-          autoAlpha: 1,
-          onComplete: resolve,
-        },
-      ),
-    )
-  }
+  addEventListeners() {}
 
-  hide() {
-    return new Promise((resolve) =>
-      GSAP.to(this.rootElement, {
-        autoAlpha: 0,
-        onComplete: resolve,
-      }),
-    )
-  }
+  removeEventListeners() {}
 }
