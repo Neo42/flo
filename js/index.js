@@ -44,6 +44,7 @@ class App {
     this.page.hide()
     this.page.create()
     this.page.show()
+    this.listenToLinks()
   }
 
   listenToLinks() {
