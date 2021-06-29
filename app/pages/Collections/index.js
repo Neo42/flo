@@ -1,6 +1,6 @@
 import {Page} from 'classes'
 
-export default class Collections extends Page {
+export class Collections extends Page {
   constructor() {
     super({
       id: 'collections',

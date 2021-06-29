@@ -54,7 +54,6 @@ export class Page {
   }
 
   show() {
-    console.log('show')
     return new Promise((resolve) =>
       GSAP.fromTo(
         this.rootElement,

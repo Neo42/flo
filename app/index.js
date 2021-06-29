@@ -1,8 +1,8 @@
-import Home from 'pages/Home'
-import Collections from 'pages/Collections'
-import Detail from 'pages/Detail'
-import About from 'pages/About'
-import Loader from 'components/Loader'
+import {Home} from 'pages'
+import {Collections} from 'pages'
+import {Detail} from 'pages'
+import {About} from 'pages'
+import {Loader} from 'components'
 
 class App {
   constructor() {

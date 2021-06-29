@@ -2,7 +2,7 @@ import GSAP from 'gsap'
 import {Component} from 'classes'
 import {splitText} from '../utils'
 
-export default class Loader extends Component {
+export class Loader extends Component {
   constructor() {
     super({
       rootSelector: '.loader',
