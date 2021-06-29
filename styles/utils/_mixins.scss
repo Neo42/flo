@@ -47,22 +47,29 @@
   font-family: $font-george-x;
   font-size: #{math.div($size, 10)}rem;
   font-weight: normal;
+
   @if $size == 20 {
     @include media('<phone') {
       font-size: 4.8rem;
     }
-  } @else if $size == 30 {
+  }
+
+  @if $size == 30 {
     @include media('<phone') {
       font-size: 5.2rem;
     }
-  } @else if index((53 100), $size) {
+  }
+
+  @if index((53 100), $size) {
     line-height: 1;
     @if $size == 100 {
       @include media('<phone') {
         font-size: 12rem;
       }
     }
-  } @else if $size == 120 {
+  }
+
+  @if $size == 120 {
     line-height: 0.82;
 
     @include media('<phone') {
@@ -81,15 +88,20 @@
 
   font-family: $font-suisse-bp;
   font-size: #{math.div($size, 10)}rem;
+
   @if $size == 12 {
     @include media('<phone') {
       font-size: 3rem;
     }
-  } @else if $size == 14 {
+  }
+
+  @if $size == 14 {
     @include media('<phone') {
       font-size: 3rem;
     }
-  } @else {
+  }
+
+  @if $size == 16 {
     font-weight: 300;
     line-height: 1.5;
 

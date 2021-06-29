@@ -37,9 +37,8 @@ export class Loader extends Component {
     this.length += 1
     this.percent = this.length / this.elements.images.length
     this.elements.numberText.innerHTML = `${Math.round(this.percent * 100)}%`
-    if (this.percent === 1) {
-      this.onLoadingCompleted()
-    }
+
+    if (this.percent === 1) this.onLoadingCompleted()
   }
 
   onLoadingCompleted() {

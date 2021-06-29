@@ -41,9 +41,7 @@ export function splitText({target, delimeter = ' ', append = true, times = 1}) {
 
   totalTimes -= 1
 
-  if (totalTimes === 0) {
-    return spans
-  }
+  if (totalTimes === 0) return spans
 
   splitText({
     target,
@@ -59,22 +57,16 @@ function calculate(spans) {
   let position = spans[0].offsetTop
 
   spans.forEach((span, index) => {
-    if (span.offsetTop === position) {
-      words.push(span)
-    }
+    if (span.offsetTop === position) words.push(span)
 
     if (span.offsetTop !== position) {
       lines.push(words)
-
       words = []
       words.push(span)
-
       position = span.offsetTop
     }
 
-    if (index + 1 === spans.length) {
-      lines.push(words)
-    }
+    if (index + 1 === spans.length) lines.push(words)
   })
 
   return lines
@@ -86,9 +78,7 @@ function split(text, delimeter) {
   let words = []
 
   splits.forEach((item, index) => {
-    if (index > 0) {
-      words.push('<br>')
-    }
+    if (index > 0) words.push('<br>')
 
     words = words.concat(item.split(delimeter))
 
@@ -100,27 +90,20 @@ function split(text, delimeter) {
     words.forEach((word) => {
       if (!isLink && (word.includes('<a') || word.includes('<strong'))) {
         link = ''
-
         isLink = true
       }
 
-      if (isLink) {
-        link += ` ${word}`
-      }
+      if (isLink) link += ` ${word}`
 
       if (isLink && (word.includes('/a>') || word.includes('/strong>'))) {
         innerHTML.push(link)
-
         link = ''
       }
 
-      if (!isLink && link === '') {
-        innerHTML.push(word)
-      }
+      if (!isLink && link === '') innerHTML.push(word)
 
-      if (isLink && (word.includes('/a>') || word.includes('/strong>'))) {
+      if (isLink && (word.includes('/a>') || word.includes('/strong>')))
         isLink = false
-      }
     })
 
     words = innerHTML
@@ -132,11 +115,9 @@ function split(text, delimeter) {
 function parseLine(line) {
   line = line.trim()
 
-  if (line === '' || line === ' ') {
-    return line
-  } else {
-    return line === '<br>'
-      ? '<br>'
-      : `<span>${line}</span>` + (line.length > 1 ? ' ' : '')
-  }
+  if (line === '' || line === ' ') return line
+
+  return line === '<br>'
+    ? '<br>'
+    : `<span>${line}</span>` + (line.length > 1 ? ' ' : '')
 }

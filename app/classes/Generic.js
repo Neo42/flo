@@ -41,20 +41,19 @@ export class Generic extends EventEmitter {
     selectedElementKeys.forEach((key) => {
       const selectedElement = this.selectedElements[key]
 
-      if (isValidHtml(selectedElement)) {
-        this.elements[key] = selectedElement
-      } else if (typeof selectedElement === 'string') {
+      if (!isValidHtml(selectedElement) && !typeof selectedElement === 'string')
+        throw new Error(
+          `TypeError: ${selectedElement} is not a HTMLElement, a NodeList, or a string.`,
+        )
+
+      if (typeof selectedElement === 'string') {
         !doesExistInDocument(selectedElement) &&
           console.warn(`Elements for ${selectedElement} not found.`)
 
         this.elements[key] = doesExistInDocument(selectedElement)
           ? document.querySelector(selectedElement)
           : null
-      } else {
-        throw new Error(
-          `TypeError: ${selectedElement} is not a HTMLElement, a NodeList, or a string.`,
-        )
-      }
+      } else this.elements[key] = selectedElement
     })
   }
 }
