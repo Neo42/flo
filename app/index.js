@@ -44,7 +44,7 @@ class App {
   async onChange(url) {
     await this.page.hide()
 
-    this.checkPage()
+    this.checkPageShowEarly()
 
     const response = await window.fetch(url)
     if (!response.ok) throw new Error(response)
@@ -66,19 +66,18 @@ class App {
   }
 
   onLoaded() {
-    this.checkPage()
+    this.checkPageShowEarly()
     this.loader.destroy()
     this.page.show()
   }
 
-  checkPage() {
+  checkPageShowEarly() {
     if (
       window
         .getComputedStyle(this.page.rootElement)
         .getPropertyValue('opacity') === 1
-    ) {
-      throw new Error(`Page.show() shouldn't run twice.`)
-    }
+    )
+      throw new Error(`Page.show() shouldn't run this early.`)
   }
 }
 

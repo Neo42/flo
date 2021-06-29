@@ -17,10 +17,7 @@ export class Loader extends Component {
     splitText({
       target: this.elements.text,
       delimeter: '<br>',
-    })
-    splitText({
-      target: this.elements.text,
-      delimeter: '<br>',
+      times: 2,
     })
 
     this.elements.textSpans = this.elements.text.querySelectorAll('span span')
