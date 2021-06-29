@@ -1,7 +1,4 @@
-import {Home} from 'pages'
-import {Collections} from 'pages'
-import {Detail} from 'pages'
-import {About} from 'pages'
+import {About, Collections, Detail, Home} from 'pages'
 import {Loader} from 'components'
 
 class App {
@@ -47,6 +44,8 @@ class App {
   async onChange(url) {
     await this.page.hide()
 
+    this.checkPage()
+
     const response = await window.fetch(url)
     if (!response.ok) throw new Error(response)
 
@@ -67,8 +66,19 @@ class App {
   }
 
   onLoaded() {
+    this.checkPage()
     this.loader.destroy()
     this.page.show()
+  }
+
+  checkPage() {
+    if (
+      window
+        .getComputedStyle(this.page.rootElement)
+        .getPropertyValue('opacity') === 1
+    ) {
+      throw new Error(`Page.show() shouldn't run twice.`)
+    }
   }
 }
 

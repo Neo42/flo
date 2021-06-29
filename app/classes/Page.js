@@ -5,24 +5,28 @@ const doesExistInDocument = (selectedElement) =>
   !!document.querySelectorAll(selectedElement).length
 
 export class Page {
-  constructor(
-    {rootSelector, selectedElements, id} = {
-      rootSelector: null,
-      selectedElements: null,
-      id: null,
-    },
-  ) {
-    if (rootSelector === null || selectedElements === null || id === null) {
-      throw new Error('Page ReferenceError: Init arguments missing')
+  constructor({rootSelector, selectedElements, id}) {
+    if (!rootSelector || !selectedElements || !id) {
+      const missingArgNames = Object.entries({
+        rootSelector,
+        selectedElements,
+        id,
+      })
+        .filter(([_, value]) => value === undefined)
+        .map(([key]) => key)
+
+      throw new Error(
+        `ReferenceError: Page constructor missing arguments ${missingArgNames}`,
+      )
     }
 
     if (!isPlainObject(selectedElements)) {
       throw new Error(
-        `Page TypeError: selectedElements must be a plain object.`,
+        `TypeError: Page's selectedElements must be a plain object.`,
       )
     }
 
-    this.selectedElements = {...selectedElements}
+    this.selectedElements = selectedElements
     this.id = id
     this.rootSelector = rootSelector
   }
@@ -54,6 +58,7 @@ export class Page {
   }
 
   show() {
+    console.trace()
     return new Promise((resolve) =>
       GSAP.fromTo(
         this.rootElement,
