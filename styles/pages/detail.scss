@@ -3,6 +3,7 @@
   @extend %center;
   background-color: $color-quicksand;
   color: $color-linen;
+  opacity: 0;
 
   @include media('<phone') {
     height: auto;

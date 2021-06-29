@@ -4,7 +4,7 @@ import {isPlainObject, isValidHtml} from '../utils'
 const doesExistInDocument = (selectedElement) =>
   !!document.querySelectorAll(selectedElement).length
 
-export default class Page {
+export class Page {
   constructor(
     {rootSelector, selectedElements, id} = {
       rootSelector: null,
@@ -54,6 +54,7 @@ export default class Page {
   }
 
   show() {
+    console.log('show')
     return new Promise((resolve) =>
       GSAP.fromTo(
         this.rootElement,

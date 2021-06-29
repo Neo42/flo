@@ -1,5 +1,5 @@
 import GSAP from 'gsap'
-import Component from 'classes/Component'
+import {Component} from 'classes'
 import {splitText} from '../utils'
 
 export default class Loader extends Component {
@@ -31,7 +31,7 @@ export default class Loader extends Component {
 
   createLoader() {
     this.elements.images.forEach((image) => {
-      image.onloaded = this.onLoaded(image)
+      image.onloaded = this.onLoaded()
       image.src = image.getAttribute('data-src')
     })
   }

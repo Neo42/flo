@@ -4,7 +4,7 @@ import {isPlainObject, isValidHtml} from '../utils'
 const doesExistInDocument = (selectedElement) =>
   !!document.querySelectorAll(selectedElement).length
 
-export default class Component extends EventEmitter {
+export class Component extends EventEmitter {
   constructor(
     {rootSelector, selectedElements} = {
       rootSelector: null,
