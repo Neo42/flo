@@ -6,7 +6,6 @@ export class Home extends Page {
       id: 'home',
       rootSelector: '.home',
       selectedElements: {
-        link: '.home__link',
         navigation: document.querySelector('.navigation'),
       },
     })
