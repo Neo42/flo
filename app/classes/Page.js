@@ -3,7 +3,7 @@ import GSAP from 'gsap'
 
 export class Page extends Generic {
   constructor({rootSelector, selectedElements, id}) {
-    if (!id) throw new Error('Page id missing.')
+    if (!id) throw Error('Page id missing.')
 
     super({rootSelector, selectedElements})
     this.id = id

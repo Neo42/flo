@@ -20,7 +20,7 @@ export class Generic extends EventEmitter {
     }
 
     if (!isPlainObject(selectedElements)) {
-      throw new Error(`TypeError: UI selectedElements must be a plain object.`)
+      throw Error(`TypeError: UI selectedElements must be a plain object.`)
     }
 
     super()
@@ -40,7 +40,7 @@ export class Generic extends EventEmitter {
       const selectedElement = this.selectedElements[key]
 
       if (!isValidHtml(selectedElement) && !typeof selectedElement === 'string')
-        throw new Error(
+        throw Error(
           `TypeError: ${selectedElement} is not a HTMLElement, a NodeList, or a string.`,
         )
 

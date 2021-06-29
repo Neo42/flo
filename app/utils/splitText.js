@@ -1,7 +1,7 @@
 let totalTimes = 1
 
 export function splitText({target, delimeter = ' ', append = true, times = 1}) {
-  if (typeof times !== 'number') throw new Error('times must be a number')
+  if (typeof times !== 'number') throw Error('times must be a number')
   if (times >= 1) totalTimes = times
 
   const words = split(target.innerHTML.toString().trim(), delimeter)

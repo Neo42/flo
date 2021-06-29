@@ -47,7 +47,7 @@ class App {
     this.checkPageShowEarly()
 
     const response = await window.fetch(url)
-    if (!response.ok) throw new Error(response)
+    if (!response.ok) throw Error(response)
 
     const htmlText = await response.text()
     const content = new DOMParser()
@@ -77,7 +77,7 @@ class App {
         .getComputedStyle(this.page.rootElement)
         .getPropertyValue('opacity') === 1
     )
-      throw new Error(`Page.show() shouldn't run this early.`)
+      throw Error(`Page.show() shouldn't run this early.`)
   }
 }
 
