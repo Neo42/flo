@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride())
 app.use(logger('combined'))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
 
 const initApi = (req) => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
