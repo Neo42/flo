@@ -10,7 +10,6 @@ export class Page extends Generic {
   }
 
   show() {
-    console.trace()
     return new Promise((resolve) =>
       GSAP.fromTo(
         this.rootElement,

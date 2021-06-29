@@ -17,12 +17,10 @@ export class Generic extends EventEmitter {
       console.warn(
         `ReferenceError: UI constructor missing arguments ${missingArgNames}`,
       )
-      console.trace()
     }
 
     if (!isPlainObject(selectedElements)) {
       throw new Error(`TypeError: UI selectedElements must be a plain object.`)
-      console.trace()
     }
 
     super()
