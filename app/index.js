@@ -6,7 +6,9 @@ class App {
     this.createLoader()
     this.createContent()
     this.createPages()
-    this.listenToLinks()
+    this.addEventListeners()
+    this.listenToAllLinks()
+    this.update()
   }
 
   createLoader() {
@@ -27,10 +29,13 @@ class App {
       about: new About(),
     }
     this.page = this.pages[this.template]
-    this.page.create()
   }
 
-  listenToLinks() {
+  addEventListeners() {
+    window.addEventListener('resize', this.onResize.bind(this))
+  }
+
+  listenToAllLinks() {
     const links = document.querySelectorAll('a')
 
     links.forEach((link) => {
@@ -59,16 +64,24 @@ class App {
     this.content.innerHTML = content.innerHTML
 
     this.page = this.pages[this.template]
+
     this.page.create()
+    this.onResize()
     this.page.show()
 
-    this.listenToLinks()
+    this.listenToAllLinks()
   }
 
   onLoaded() {
     this.checkPageShowEarly()
     this.loader.destroy()
+    this.onResize()
     this.page.show()
+  }
+
+  onResize() {
+    if (!this.page || !this.page.onResize || !this.page.elements.wrapper) return
+    this.page.onResize()
   }
 
   checkPageShowEarly() {
@@ -78,6 +91,12 @@ class App {
         .getPropertyValue('opacity') === 1
     )
       throw Error(`Page.show() shouldn't run this early.`)
+  }
+
+  update() {
+    this.frame = window.requestAnimationFrame(this.update.bind(this))
+    if (!this.page || !this.page.update || !this.page.elements.wrapper) return
+    this.page.update()
   }
 }
 

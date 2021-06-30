@@ -7,6 +7,7 @@ export class About extends Page {
       rootSelector: '.about',
       selectedElements: {
         navigation: document.querySelector('.navigation'),
+        wrapper: '.about__wrapper',
       },
     })
   }

@@ -7,6 +7,10 @@
 }
 
 html {
+  @extend %cover;
+
+  position: fixed;
+  overflow: hidden;
   font-size: calc(100vw / 1920 * 10);
   line-height: 1;
 
@@ -17,6 +21,9 @@ html {
 
 body {
   @include text(16);
+  @extend %cover;
+
+  position: fixed;
 }
 
 ul,
@@ -32,4 +39,8 @@ a {
 
 img {
   vertical-align: middle;
+}
+
+.content {
+  @extend %cover;
 }
