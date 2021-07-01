@@ -2,7 +2,8 @@ let totalTimes = 1
 
 export function splitText({target, delimeter = ' ', append = true, times = 1}) {
   if (typeof times !== 'number') throw Error('times must be a number')
-  if (times >= 1) totalTimes = times
+
+  totalTimes = times >= 1 ? times : totalTimes
 
   const words = split(target.innerHTML.toString().trim(), delimeter)
 
@@ -94,7 +95,7 @@ function split(text, delimeter) {
         isLink = true
       }
 
-      if (isLink) link += ` ${word}`
+      link += isLink ? ` ${word}` : ''
 
       if (isLink && (word.includes('/a>') || word.includes('/strong>'))) {
         innerHTML.push(link)

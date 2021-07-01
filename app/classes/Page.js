@@ -77,6 +77,8 @@ export class Page extends Generic {
   }
 
   update() {
+    if (!this.elements.wrapper) return
+
     this.scroll.target = GSAP.utils.clamp(
       0,
       this.scroll.limit,

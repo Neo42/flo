@@ -93,7 +93,6 @@ class App {
 
   update() {
     this.frame = window.requestAnimationFrame(this.update.bind(this))
-    if (!this.page || !this.page.update || !this.page.elements.wrapper) return
     this.page.update()
   }
 }
