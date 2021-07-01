@@ -9,15 +9,16 @@ export function splitText({target, delimeter = ' ', append = true, times = 1}) {
   let innerHTML = ''
 
   words.forEach((line) => {
-    if (line.indexOf('<br>') > -1) {
-      const lines = line.split('<br>')
-
-      lines.forEach((line, index) => {
-        innerHTML += index > 0 ? '<br>' + parseLine(line) : parseLine(line)
-      })
-    } else {
+    if (line.indexOf('<br>') === -1) {
       innerHTML += parseLine(line)
+      return
     }
+
+    const lines = line.split('<br>')
+    lines.forEach(
+      (line, index) =>
+        (innerHTML += index > 0 ? '<br>' + parseLine(line) : parseLine(line)),
+    )
   })
 
   target.innerHTML = innerHTML

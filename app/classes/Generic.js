@@ -44,6 +44,10 @@ export class Generic extends EventEmitter {
           `TypeError: ${selectedElement} is not a HTMLElement, a NodeList, or a string.`,
         )
 
+      if (isValidHtml(selectedElement)) {
+        this.elements[key] = selectedElement
+      }
+
       if (typeof selectedElement === 'string') {
         !doesExistInDocument(selectedElement) &&
           console.warn(`Elements for ${selectedElement} not found.`)
@@ -51,7 +55,7 @@ export class Generic extends EventEmitter {
         this.elements[key] = doesExistInDocument(selectedElement)
           ? document.querySelector(selectedElement)
           : null
-      } else this.elements[key] = selectedElement
+      }
     })
   }
 }

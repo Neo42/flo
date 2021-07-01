@@ -22,6 +22,7 @@ export class Page extends Generic {
       last: 0,
       limit: 0,
     }
+    this.onResize()
   }
 
   show() {
@@ -59,11 +60,11 @@ export class Page extends Generic {
   }
 
   onMouseWheel({deltaY}) {
-    const position = this.scroll.target + deltaY
     this.scroll.target += deltaY
   }
 
   onResize() {
+    if (!this.elements.wrapper) return
     this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
   }
 

@@ -66,7 +66,6 @@ class App {
     this.page = this.pages[this.template]
 
     this.page.create()
-    this.onResize()
     this.page.show()
 
     this.listenToAllLinks()
@@ -80,7 +79,6 @@ class App {
   }
 
   onResize() {
-    if (!this.page || !this.page.onResize || !this.page.elements.wrapper) return
     this.page.onResize()
   }
 

@@ -130,7 +130,9 @@
   @if $part == 'title' {
     @include title(200);
     padding-top: 2rem;
-  } @else {
+  }
+
+  @if $part == 'label' {
     @include text(12);
     margin: 0 3rem;
     text-align: center;
