@@ -52,7 +52,7 @@ export function splitText({target, delimeter = ' ', append = true, times = 1}) {
   })
 }
 
-function calculate(spans) {
+export function calculate(spans) {
   const lines = []
   let words = []
 

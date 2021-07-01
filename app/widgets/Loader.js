@@ -1,12 +1,12 @@
 import GSAP from 'gsap'
-import {Component} from 'classes'
-import {splitText} from '../utils'
+import Widget from 'classes/Widget'
+import {splitText} from 'utils'
 
-export class Loader extends Component {
+export class Loader extends Widget {
   constructor() {
     super({
-      rootSelector: '.loader',
-      selectedElements: {
+      root: '.loader',
+      targets: {
         text: '.loader__text',
         number: '.loader__number',
         numberText: '.loader__number__text',
@@ -15,19 +15,20 @@ export class Loader extends Component {
     })
 
     splitText({
-      target: this.elements.text,
+      target: this.targetElements.text,
       delimeter: '<br>',
       times: 2,
     })
 
-    this.elements.textSpans = this.elements.text.querySelectorAll('span span')
+    this.targetElements.textSpans =
+      this.targetElements.text.querySelectorAll('span span')
     this.length = 0
     this.percent = 0
     this.createLoader()
   }
 
   createLoader() {
-    this.elements.images.forEach((image) => {
+    this.targetElements.images.forEach((image) => {
       image.onloaded = this.onLoaded()
       image.src = image.getAttribute('data-src')
     })
@@ -35,8 +36,10 @@ export class Loader extends Component {
 
   onLoaded() {
     this.length += 1
-    this.percent = this.length / this.elements.images.length
-    this.elements.numberText.innerHTML = `${Math.round(this.percent * 100)}%`
+    this.percent = this.length / this.targetElements.images.length
+    this.targetElements.numberText.innerHTML = `${Math.round(
+      this.percent * 100,
+    )}%`
 
     if (this.percent === 1) this.onLoadingCompleted()
   }
@@ -47,7 +50,7 @@ export class Loader extends Component {
         delay: 2,
       })
 
-      this.animateOut.to(this.elements.textSpans, {
+      this.animateOut.to(this.targetElements.textSpans, {
         autoAlpha: 0,
         duration: 1.5,
         ease: 'expo.out',
@@ -56,7 +59,7 @@ export class Loader extends Component {
       })
 
       this.animateOut.to(
-        this.elements.numberText,
+        this.targetElements.numberText,
         {
           autoAlpha: 0,
           duration: 1.5,

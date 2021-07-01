@@ -1,7 +1,7 @@
-export function isValidHtml(selectedElement) {
+export function isValidHtml(targetElement) {
   return (
-    selectedElement instanceof window.HTMLElement ||
-    selectedElement instanceof NodeList ||
-    Array.isArray(selectedElement)
+    targetElement instanceof HTMLElement ||
+    targetElement instanceof NodeList ||
+    Array.isArray(targetElement)
   )
 }

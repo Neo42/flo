@@ -1,11 +1,11 @@
-import {Page} from 'classes'
+import Page from 'classes/Page'
 
 export class Collections extends Page {
   constructor() {
     super({
       id: 'collections',
-      rootSelector: '.collections',
-      selectedElements: {
+      root: '.collections',
+      targets: {
         navigation: document.querySelector('.navigation'),
       },
     })

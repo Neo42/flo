@@ -1,11 +1,11 @@
-import {Page} from 'classes'
+import Page from 'classes/Page'
 
 export class Detail extends Page {
   constructor() {
     super({
       id: 'detail',
-      rootSelector: '.detail',
-      selectedElements: {
+      root: '.detail',
+      targets: {
         navigation: document.querySelector('.navigation'),
       },
     })

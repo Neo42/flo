@@ -1,16 +1,49 @@
 import GSAP from 'gsap'
+import normalizeWheel from 'normalize-wheel'
 import Prefix from 'prefix'
-import {Generic} from 'classes'
+import Component from 'classes/Component'
+import {
+  TitleAnimation,
+  ParagraphAnimation,
+  LabelAnimation,
+  HighlightAnimation,
+} from 'animations'
+import {isPlainObject} from 'utils'
 
-export class Page extends Generic {
-  constructor({rootSelector, selectedElements, id}) {
-    if (!id) throw Error('Page id missing.')
+export default class Page extends Component {
+  constructor({root, targets, id}) {
+    if (!root || !targets || !id) {
+      const missingArgNames = Object.entries({
+        root,
+        targets,
+      })
+        .filter(([_, value]) => value === undefined)
+        .map(([key]) => key)
 
-    super({rootSelector, selectedElements})
+      console.warn(
+        `ReferenceError: UI constructor missing arguments ${missingArgNames}`,
+      )
+    }
+
+    if (!isPlainObject(targets)) {
+      throw Error(`TypeError: UI targets must be a plain object.`)
+    }
+
+    super({
+      root,
+      targets: {
+        ...targets,
+        animatedHighlights: '[data-animation="highlight"]',
+        animatedLabels: '[data-animation="label"]',
+        animatedParagraphs: '[data-animation="paragraph"]',
+        animatedTitles: '[data-animation="title"]',
+      },
+    })
+
     this.id = id
     this.transformPrefix = Prefix('transform')
     this.onMouseWheel = this.onMouseWheel.bind(this)
-
+    this.onResize = this.onResize.bind(this)
     this.create()
   }
 
@@ -22,7 +55,31 @@ export class Page extends Generic {
       last: 0,
       limit: 0,
     }
-    this.onResize()
+  }
+
+  createAnimations() {
+    this.animatedHighlights = Object.values(
+      this.targetElements.animatedHighlights,
+    ).map((highlight) => new HighlightAnimation({root: highlight}))
+
+    this.animatedLabels = Object.values(this.targetElements.animatedLabels).map(
+      (label) => new LabelAnimation({root: label}),
+    )
+
+    this.animatedParagraphs = Object.values(
+      this.targetElements.animatedParagraphs,
+    ).map((paragraph) => new ParagraphAnimation({root: paragraph}))
+
+    this.animatedTitles = Object.values(this.targetElements.animatedTitles).map(
+      (title) => new TitleAnimation({root: title}),
+    )
+
+    this.animations = [
+      ...this.animatedHighlights,
+      ...this.animatedLabels,
+      ...this.animatedParagraphs,
+      ...this.animatedTitles,
+    ]
   }
 
   show() {
@@ -59,13 +116,20 @@ export class Page extends Generic {
     })
   }
 
-  onMouseWheel({deltaY}) {
-    this.scroll.target += deltaY
+  onMouseWheel(event) {
+    const {pixelY: normalizedY} = normalizeWheel(event)
+    this.scroll.target += normalizedY
   }
 
   onResize() {
-    if (!this.elements.wrapper) return
-    this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+    if (!this.targetElements.wrapper) return
+
+    this.scroll.limit =
+      this.targetElements.wrapper.clientHeight - window.innerHeight
+
+    this.animations.forEach(
+      (animation) => animation.onResize && animation.onResize(),
+    )
   }
 
   addEventListeners() {
@@ -77,7 +141,7 @@ export class Page extends Generic {
   }
 
   update() {
-    if (!this.elements.wrapper) return
+    if (!this.targetElements.wrapper) return
 
     this.scroll.target = GSAP.utils.clamp(
       0,
@@ -93,7 +157,7 @@ export class Page extends Generic {
 
     this.scroll.current = this.scroll.current < 0.01 ? 0 : this.scroll.current
 
-    this.elements.wrapper.style[
+    this.targetElements.wrapper.style[
       this.transformPrefix
     ] = `translateY(-${this.scroll.current}px)`
   }

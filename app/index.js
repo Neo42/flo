@@ -1,5 +1,5 @@
 import {About, Collections, Detail, Home} from 'pages'
-import {Loader} from 'components'
+import {Loader} from 'widgets'
 
 class App {
   constructor() {
@@ -29,6 +29,7 @@ class App {
       about: new About(),
     }
     this.page = this.pages[this.template]
+    this.page.createAnimations()
   }
 
   addEventListeners() {
@@ -38,17 +39,17 @@ class App {
   listenToAllLinks() {
     const links = document.querySelectorAll('a')
 
-    links.forEach((link) => {
-      link.onclick = (e) => {
-        e.preventDefault()
-        this.onChange(link.href)
-      }
-    })
+    links.forEach(
+      (link) =>
+        (link.onclick = (e) => {
+          e.preventDefault()
+          this.onChange(link.href)
+        }),
+    )
   }
 
   async onChange(url) {
     await this.page.hide()
-
     this.checkPageShowEarly()
 
     const response = await window.fetch(url)
@@ -74,6 +75,7 @@ class App {
   onLoaded() {
     this.checkPageShowEarly()
     this.loader.destroy()
+    this.page.createAnimations()
     this.onResize()
     this.page.show()
   }
