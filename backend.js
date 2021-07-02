@@ -71,31 +71,24 @@ const handleRequest = async ({
   },
 }) => {
   const api = await initApi(req)
-  const getData = async (name) => await api.getSingle(name)
-
-  const getCollectionsData = async () => {
-    const {result: collectionData} = await api.query(
-      Prismic.Predicates.at('document.type', 'collection'),
-      {fetchLinks: 'product.image'},
-    )
-    return collectionData
-  }
-
-  const getProductData = async () => {
-    const productData = await api.getByUID('product', req.params.uid, {
-      fetchLinks: 'collection.title',
-    })
-    return productData
-  }
-
   const customResponse = {
-    meta: await getData('meta'),
-    loader: await getData('loader'),
-    navigation: await getData('navigation'),
-    home: !!home && (await getData('home')),
-    about: !!about && (await getData('about')),
-    collections: !!collections && (await getCollectionsData()),
-    product: !!product && (await getProductData()),
+    meta: await api.getSingle('meta'),
+    loader: await api.getSingle('loader'),
+    navigation: await api.getSingle('navigation'),
+    home: !!home && (await api.getSingle('home')),
+    about: !!about && (await api.getSingle('about')),
+    collections:
+      !!collections &&
+      (
+        await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+          fetchLinks: 'product.image',
+        })
+      ).results,
+    product:
+      !!product &&
+      (await api.getByUID('product', req.params.uid, {
+        fetchLinks: 'collection.title',
+      })),
   }
   return customResponse
 }

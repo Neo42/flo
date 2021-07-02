@@ -43,21 +43,37 @@ export class Page extends Component {
   }
 
   createAnimations() {
-    this.animatedHighlights = Object.values(
-      this.targetElements.animatedHighlights,
-    ).map((highlight) => new HighlightAnimation({root: highlight}))
-
-    this.animatedLabels = Object.values(this.targetElements.animatedLabels).map(
-      (label) => new LabelAnimation({root: label}),
+    if (
+      !this.targetElements.animatedHighlights &&
+      !this.targetElements.animatedLabels &&
+      !this.targetElements.animatedParagraphs &&
+      !this.targetElements.animatedTitles
     )
+      return
 
-    this.animatedParagraphs = Object.values(
-      this.targetElements.animatedParagraphs,
-    ).map((paragraph) => new ParagraphAnimation({root: paragraph}))
+    if (this.targetElements.animatedHighlights) {
+      this.animatedHighlights = Object.values(
+        this.targetElements.animatedHighlights,
+      ).map((highlight) => new HighlightAnimation({root: highlight}))
+    }
 
-    this.animatedTitles = Object.values(this.targetElements.animatedTitles).map(
-      (title) => new TitleAnimation({root: title}),
-    )
+    if (this.targetElements.animatedLabels) {
+      this.animatedLabels = Object.values(
+        this.targetElements.animatedLabels,
+      ).map((label) => new LabelAnimation({root: label}))
+    }
+
+    if (this.targetElements.animatedParagraphs) {
+      this.animatedParagraphs = Object.values(
+        this.targetElements.animatedParagraphs,
+      ).map((paragraph) => new ParagraphAnimation({root: paragraph}))
+    }
+
+    if (this.targetElements.animatedTitles) {
+      this.animatedTitles = Object.values(
+        this.targetElements.animatedTitles,
+      ).map((title) => new TitleAnimation({root: title}))
+    }
 
     this.animations = [
       ...this.animatedHighlights,
