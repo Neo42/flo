@@ -1,5 +1,5 @@
 export function checkIsPlainObject(thing, thingName) {
-  if (isPlainObject(thing))
+  if (!isPlainObject(thing))
     throw Error(`TypeError: ${thingName} is not a plain object.`)
 }
 
