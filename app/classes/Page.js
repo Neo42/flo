@@ -43,7 +43,6 @@ export class Page extends Component {
     this.id = id
     this.transformPrefix = Prefix('transform')
     this.onMouseWheel = this.onMouseWheel.bind(this)
-    this.create()
   }
 
   create() {
@@ -54,6 +53,7 @@ export class Page extends Component {
       last: 0,
       limit: 0,
     }
+    this.createAnimations()
   }
 
   createAnimations() {

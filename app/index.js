@@ -29,7 +29,6 @@ class App {
       about: new About(),
     }
     this.page = this.pages[this.template]
-    this.page.createAnimations()
   }
 
   addEventListeners() {
