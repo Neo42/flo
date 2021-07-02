@@ -16,6 +16,7 @@ export class Page extends Component {
       const missingArgNames = Object.entries({
         root,
         targets,
+        id,
       })
         .filter(([_, value]) => value === undefined)
         .map(([key]) => key)
