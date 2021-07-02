@@ -1,4 +1,4 @@
-import Page from 'classes/Page'
+import {Page} from 'classes'
 
 export class Collections extends Page {
   constructor() {

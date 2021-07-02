@@ -1,5 +1,5 @@
 import GSAP from 'gsap'
-import Animation from 'classes/Animation'
+import {Animation} from 'classes'
 
 export class HighlightAnimation extends Animation {
   constructor({root, targets}) {

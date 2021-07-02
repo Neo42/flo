@@ -1,6 +1,6 @@
-import Widget from 'classes/Widget'
+import {Widget} from 'classes'
 
-export default class Animation extends Widget {
+export class Animation extends Widget {
   constructor({root, targets}) {
     super({root, targets})
     this.createObserver()

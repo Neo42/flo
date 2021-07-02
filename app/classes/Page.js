@@ -1,7 +1,7 @@
 import GSAP from 'gsap'
 import normalizeWheel from 'normalize-wheel'
 import Prefix from 'prefix'
-import Component from 'classes/Component'
+import Component from './Component'
 import {
   TitleAnimation,
   ParagraphAnimation,
@@ -10,7 +10,7 @@ import {
 } from 'animations'
 import {isPlainObject} from 'utils'
 
-export default class Page extends Component {
+export class Page extends Component {
   constructor({root, targets, id}) {
     if (!root || !targets || !id) {
       const missingArgNames = Object.entries({
@@ -126,10 +126,9 @@ export default class Page extends Component {
     this.scroll.limit =
       this.targetElements.wrapper.clientHeight - window.innerHeight
 
-    this.animations &&
-      this.animations.forEach((animation) => {
-        animation.onResize && animation.onResize()
-      })
+    this.animations.forEach((animation) => {
+      animation.onResize && animation.onResize()
+    })
   }
 
   addEventListeners() {

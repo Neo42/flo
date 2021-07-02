@@ -1,5 +1,5 @@
 import GSAP from 'gsap'
-import Widget from 'classes/Widget'
+import {Widget} from 'classes'
 import {splitText} from 'utils'
 
 export class Loader extends Widget {

@@ -1,6 +1,6 @@
-import Component from 'classes/Component'
+import Component from './Component'
 
-export default class Widget extends Component {
+export class Widget extends Component {
   constructor({root, targets}) {
     if (!root) {
       throw Error('Missing root')
