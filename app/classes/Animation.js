@@ -17,7 +17,12 @@ export default class Animation extends Widget {
     this.animateOut
   }
 
-  animateIn() {}
+  animateIn() {
+    if (this.isAnimateIn) return
+    this.isAnimateIn = true
+  }
 
-  animateOut() {}
+  animateOut() {
+    this.isAnimateIn = false
+  }
 }

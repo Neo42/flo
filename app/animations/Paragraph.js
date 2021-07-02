@@ -6,20 +6,22 @@ export class ParagraphAnimation extends Animation {
   constructor({root, targets}) {
     super({root, targets})
 
-    this.titleSpans = splitText({
+    this.textSpans = splitText({
       target: this.root,
     })
   }
 
   animateIn() {
+    super.animateIn()
+
     this.timelineIn = GSAP.timeline({
       delay: 0.5,
     })
 
     this.timelineIn.set(this.root, {autoAlpha: 1})
 
-    this.titleLines &&
-      this.titleLines.forEach((line, index) => {
+    this.textLines &&
+      this.textLines.forEach((line, index) => {
         this.timelineIn.fromTo(
           line,
           {
@@ -39,12 +41,14 @@ export class ParagraphAnimation extends Animation {
   }
 
   animateOut() {
+    super.animateOut()
+
     GSAP.set(this.root, {
       autoAlpha: 0,
     })
   }
 
   onResize() {
-    this.titleLines = calculate(this.titleSpans)
+    this.textLines = calculate(this.textSpans)
   }
 }

@@ -43,7 +43,6 @@ export default class Page extends Component {
     this.id = id
     this.transformPrefix = Prefix('transform')
     this.onMouseWheel = this.onMouseWheel.bind(this)
-    this.onResize = this.onResize.bind(this)
     this.create()
   }
 
@@ -127,9 +126,10 @@ export default class Page extends Component {
     this.scroll.limit =
       this.targetElements.wrapper.clientHeight - window.innerHeight
 
-    this.animations.forEach(
-      (animation) => animation.onResize && animation.onResize(),
-    )
+    this.animations &&
+      this.animations.forEach((animation) => {
+        animation.onResize && animation.onResize()
+      })
   }
 
   addEventListeners() {

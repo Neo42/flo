@@ -11,7 +11,7 @@ export class TitleAnimation extends Animation {
       times: 2,
     })
 
-    this.titleSpans = document.querySelectorAll('span span')
+    this.titleSpans = this.root.querySelectorAll('span span')
   }
 
   animateIn() {

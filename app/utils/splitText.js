@@ -1,9 +1,5 @@
-let totalTimes = 1
-
 export function splitText({target, delimeter = ' ', append = true, times = 1}) {
   if (typeof times !== 'number') throw Error('times must be a number')
-
-  totalTimes = times >= 1 ? times : totalTimes
 
   const words = split(target.innerHTML.toString().trim(), delimeter)
 
@@ -41,14 +37,14 @@ export function splitText({target, delimeter = ' ', append = true, times = 1}) {
     })
   }
 
-  totalTimes -= 1
-
-  if (totalTimes === 0) return spans
+  times -= 1
+  if (times === 0) return spans
 
   splitText({
     target,
     delimeter,
     append,
+    times,
   })
 }
 

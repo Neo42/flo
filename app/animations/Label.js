@@ -6,23 +6,22 @@ export class LabelAnimation extends Animation {
   constructor({root, targets}) {
     super({root, targets})
 
-    splitText({
+    this.labelSpans = splitText({
       target: this.root,
-      times: 2,
     })
-
-    this.titleSpans = document.querySelectorAll('span span')
   }
 
   animateIn() {
+    super.animateIn()
+
     this.timelineIn = GSAP.timeline({
       delay: 0.5,
     })
 
     this.timelineIn.set(this.root, {autoAlpha: 1})
 
-    this.titleLines &&
-      this.titleLines.forEach((line, index) => {
+    this.labelLines &&
+      this.labelLines.forEach((line, index) => {
         this.timelineIn.fromTo(
           line,
           {
@@ -40,12 +39,14 @@ export class LabelAnimation extends Animation {
   }
 
   animateOut() {
+    super.animateOut()
+
     GSAP.set(this.root, {
       autoAlpha: 0,
     })
   }
 
   onResize() {
-    this.titleLines = calculate(this.titleSpans)
+    this.labelLines = calculate(this.labelSpans)
   }
 }

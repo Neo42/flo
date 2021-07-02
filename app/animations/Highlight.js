@@ -7,6 +7,8 @@ export class HighlightAnimation extends Animation {
   }
 
   animateIn() {
+    super.animateIn()
+
     this.timelineIn = GSAP.timeline({
       delay: 0.5,
     })
@@ -27,6 +29,8 @@ export class HighlightAnimation extends Animation {
   }
 
   animateOut() {
+    super.animateOut()
+
     GSAP.set(this.root, {
       autoAlpha: 0,
     })

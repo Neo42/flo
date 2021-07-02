@@ -49,7 +49,6 @@ export class Loader extends Widget {
       this.animateOut = GSAP.timeline({
         delay: 2,
       })
-
       this.animateOut.to(this.targetElements.textSpans, {
         autoAlpha: 0,
         duration: 1.5,
@@ -57,7 +56,6 @@ export class Loader extends Widget {
         stagger: 0.1,
         y: '100%',
       })
-
       this.animateOut.to(
         this.targetElements.numberText,
         {
@@ -69,7 +67,6 @@ export class Loader extends Widget {
         },
         '-=1.4',
       )
-
       this.animateOut.to(
         this.rootElement,
         {
@@ -80,7 +77,6 @@ export class Loader extends Widget {
         },
         '-=1',
       )
-
       this.animateOut.call((_) => {
         this.emit('completed')
       })
