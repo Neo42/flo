@@ -1,4 +1,5 @@
-export {isPlainObject} from './isPlainObject'
-export {isValidHtml} from './isValidHtml'
 export {calculate} from './splitText'
+export {checkMissingArgs} from './checkMissingArgs'
+export {checkIsPlainObject} from './checkIsPlainObject'
+export {isValidHtml} from './isValidHtml'
 export {splitText} from './splitText'

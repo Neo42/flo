@@ -8,27 +8,12 @@ import {
   LabelAnimation,
   HighlightAnimation,
 } from 'animations'
-import {isPlainObject} from 'utils'
+import {checkMissingArgs, checkIsPlainObject} from 'utils'
 
 export class Page extends Component {
   constructor({root, targets, id}) {
-    if (!root || !targets || !id) {
-      const missingArgNames = Object.entries({
-        root,
-        targets,
-        id,
-      })
-        .filter(([_, value]) => value === undefined)
-        .map(([key]) => key)
-
-      console.warn(
-        `ReferenceError: UI constructor missing arguments ${missingArgNames}`,
-      )
-    }
-
-    if (!isPlainObject(targets)) {
-      throw Error(`TypeError: UI targets must be a plain object.`)
-    }
+    checkMissingArgs({root, targets, id})
+    checkIsPlainObject(targets)
 
     super({
       root,
