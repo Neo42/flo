@@ -4,10 +4,6 @@
 
 .about {
   @extend %page;
-
-  background-color: $color-crayola;
-  color: $color-arsenic;
-  opacity: 0;
 }
 
 .about__wrapper {

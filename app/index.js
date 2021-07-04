@@ -1,11 +1,13 @@
+import {ColorManager} from 'classes'
 import {About, Collections, Detail, Home} from 'pages'
-import {Loader} from 'widgets'
+import {Loader, Navigation} from 'widgets'
 
 class App {
   constructor() {
-    this.createLoader()
     this.createContent()
+    this.createLoader()
     this.createPages()
+    this.createNavigation()
     this.addEventListeners()
     this.listenToAllLinks()
     this.update()
@@ -13,7 +15,12 @@ class App {
 
   createLoader() {
     this.loader = new Loader()
+    this.loader.create()
     this.loader.once('completed', this.onLoaded.bind(this))
+  }
+
+  createNavigation() {
+    this.navigation = new Navigation({template: this.template})
   }
 
   createContent() {
@@ -29,6 +36,13 @@ class App {
       about: new About(),
     }
     this.page = this.pages[this.template]
+    this.page.create()
+
+    this.page.rootElement
+      .querySelectorAll('img')
+      .forEach((img) => img.classList.add('loaded'))
+
+    this.page.show()
   }
 
   addEventListeners() {
@@ -49,6 +63,7 @@ class App {
 
   async onChange(url) {
     await this.page.hide()
+
     this.checkPageShowEarly()
 
     const response = await window.fetch(url)
@@ -60,11 +75,12 @@ class App {
       .body.querySelector('.content')
 
     this.template = content.getAttribute('data-template')
+    this.navigation.onChange(this.template)
+
     this.content.setAttribute('data-template', this.template)
     this.content.innerHTML = content.innerHTML
 
     this.page = this.pages[this.template]
-
     this.page.create()
     this.page.show()
 
@@ -72,14 +88,11 @@ class App {
   }
 
   onLoaded() {
-    this.checkPageShowEarly()
     this.loader.destroy()
-    this.page.createAnimations()
-    this.onResize()
-    this.page.show()
   }
 
   onResize() {
+    if (!this.page.animations) return
     this.page.onResize()
   }
 

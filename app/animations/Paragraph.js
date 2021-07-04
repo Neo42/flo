@@ -1,4 +1,4 @@
-import GSAP from 'gsap'
+import gsap from 'gsap'
 import {Animation} from 'classes'
 import {calculate, splitText} from 'utils'
 
@@ -14,7 +14,7 @@ export class ParagraphAnimation extends Animation {
   animateIn() {
     super.animateIn()
 
-    this.timelineIn = GSAP.timeline({
+    this.timelineIn = gsap.timeline({
       delay: 0.5,
     })
 
@@ -43,7 +43,7 @@ export class ParagraphAnimation extends Animation {
   animateOut() {
     super.animateOut()
 
-    GSAP.set(this.root, {
+    gsap.set(this.root, {
       autoAlpha: 0,
     })
   }

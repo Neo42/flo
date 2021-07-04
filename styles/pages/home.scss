@@ -1,11 +1,9 @@
 .home {
   @extend %page;
   @extend %center;
+
   overflow: hidden;
-  background-color: $color-contessa;
-  color: $color-linen;
   text-align: center;
-  opacity: 0;
 
   &::before,
   &::after {

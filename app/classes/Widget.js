@@ -1,4 +1,4 @@
-import Component from './Component'
+import {Component} from 'classes'
 
 export class Widget extends Component {
   constructor({root, targets}) {
@@ -6,5 +6,6 @@ export class Widget extends Component {
       throw Error('Missing root')
     }
     super({root, targets})
+    this.create()
   }
 }

@@ -1,8 +1,5 @@
 .collections {
   @extend %page;
-  background-color: $color-quicksand;
-  color: $color-linen;
-  opacity: 0;
 }
 
 .collections__wrapper {
@@ -28,6 +25,7 @@
 
 .collections__gallery {
   @extend %cover;
+  z-index: 1;
 }
 
 .collections__gallery__wrapper {
@@ -83,18 +81,18 @@
 }
 
 .collections__mobile {
-  display: flex;
+  display: none;
   position: absolute;
   bottom: 5rem;
+
+  @include media('<phone') {
+    display: flex;
+  }
 }
 
 .collections__mobile__item {
   width: 100vw;
   padding-left: 5rem;
-
-  @include media('>=phone') {
-    display: none;
-  }
 }
 
 .collections__mobile__item__label {

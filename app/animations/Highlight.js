@@ -1,4 +1,4 @@
-import GSAP from 'gsap'
+import gsap from 'gsap'
 import {Animation} from 'classes'
 
 export class HighlightAnimation extends Animation {
@@ -9,7 +9,7 @@ export class HighlightAnimation extends Animation {
   animateIn() {
     super.animateIn()
 
-    this.timelineIn = GSAP.timeline({
+    this.timelineIn = gsap.timeline({
       delay: 0.5,
     })
 
@@ -31,7 +31,7 @@ export class HighlightAnimation extends Animation {
   animateOut() {
     super.animateOut()
 
-    GSAP.set(this.root, {
+    gsap.set(this.root, {
       autoAlpha: 0,
     })
   }

@@ -1,4 +1,4 @@
-import {Page} from 'classes'
+import {Button, Page} from 'classes'
 
 export class Detail extends Page {
   constructor() {
@@ -6,7 +6,7 @@ export class Detail extends Page {
       id: 'detail',
       root: '.detail',
       targets: {
-        navigation: document.querySelector('.navigation'),
+        button: '.detail__button',
       },
     })
   }

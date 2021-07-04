@@ -1,7 +1,7 @@
 import GSAP from 'gsap'
 import normalizeWheel from 'normalize-wheel'
 import Prefix from 'prefix'
-import Component from './Component'
+import {AsyncImage, Button, ColorManager, Component} from 'classes'
 import {
   TitleAnimation,
   ParagraphAnimation,
@@ -19,10 +19,12 @@ export class Page extends Component {
       root,
       targets: {
         ...targets,
+
         animatedHighlights: '[data-animation="highlight"]',
         animatedLabels: '[data-animation="label"]',
         animatedParagraphs: '[data-animation="paragraph"]',
         animatedTitles: '[data-animation="title"]',
+        images: '[data-src]',
       },
     })
 
@@ -39,7 +41,25 @@ export class Page extends Component {
       last: 0,
       limit: 0,
     }
+
+    if (this.targetElements.button) {
+      this.button = new Button({
+        root: this.targetElements.button,
+      })
+    }
+
+    this.createImages()
     this.createAnimations()
+    this.onResize()
+  }
+
+  createImages() {
+    if (this.targetElements.images instanceof HTMLElement) {
+      this.images = new AsyncImage({root: this.targetElements.images})
+    }
+    this.images = Array.from(this.targetElements.images).map(
+      (img) => new AsyncImage({root: img}),
+    )
   }
 
   createAnimations() {
@@ -83,8 +103,42 @@ export class Page extends Component {
     ]
   }
 
+  update() {
+    if (!this.targetElements.wrapper) return
+
+    this.scroll.target = GSAP.utils.clamp(
+      0,
+      this.scroll.limit,
+      this.scroll.target,
+    )
+
+    this.scroll.current = GSAP.utils.interpolate(
+      this.scroll.current,
+      this.scroll.target,
+      0.1,
+    )
+
+    this.scroll.current = this.scroll.current < 0.01 ? 0 : this.scroll.current
+
+    this.targetElements.wrapper.style[
+      this.transformPrefix
+    ] = `translateY(-${this.scroll.current}px)`
+  }
+
+  destroy() {
+    this.removeEventListeners()
+    if (this.button) {
+      this.button.removeEventListeners()
+    }
+  }
+
   show() {
     return new Promise((resolve) => {
+      ColorManager.change({
+        backgroundColor: this.rootElement.getAttribute('data-background'),
+        color: this.rootElement.getAttribute('data-color'),
+      })
+
       this.animationIn = GSAP.timeline()
 
       this.animationIn.fromTo(
@@ -106,7 +160,7 @@ export class Page extends Component {
 
   hide() {
     return new Promise((resolve) => {
-      this.removeEventListeners()
+      this.destroy()
 
       this.animationOut = GSAP.timeline()
 
@@ -139,27 +193,5 @@ export class Page extends Component {
 
   removeEventListeners() {
     window.removeEventListener('mousewheel', this.onMouseWheel)
-  }
-
-  update() {
-    if (!this.targetElements.wrapper) return
-
-    this.scroll.target = GSAP.utils.clamp(
-      0,
-      this.scroll.limit,
-      this.scroll.target,
-    )
-
-    this.scroll.current = GSAP.utils.interpolate(
-      this.scroll.current,
-      this.scroll.target,
-      0.1,
-    )
-
-    this.scroll.current = this.scroll.current < 0.01 ? 0 : this.scroll.current
-
-    this.targetElements.wrapper.style[
-      this.transformPrefix
-    ] = `translateY(-${this.scroll.current}px)`
   }
 }

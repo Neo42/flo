@@ -3,7 +3,9 @@ import {Widget} from 'classes'
 export class Animation extends Widget {
   constructor({root, targets}) {
     super({root, targets})
+
     this.createObserver()
+    this.animateOut()
   }
 
   createObserver() {
@@ -13,8 +15,8 @@ export class Animation extends Widget {
       )
     })
 
-    this.observer.observe(this.root)
-    this.animateOut
+    this.observer.observe(this.rootElement)
+    this.animateOut()
   }
 
   animateIn() {

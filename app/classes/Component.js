@@ -1,13 +1,12 @@
 import EventEmitter from 'events'
 import {isValidHtml} from 'utils'
 
-export default class Component extends EventEmitter {
+export class Component extends EventEmitter {
   constructor({root, targets}) {
     super()
 
     this.root = root
     this.targets = targets
-    this.create()
   }
 
   create() {
