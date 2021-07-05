@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const Prismic = require('@prismicio/client')
 const PrismicDOM = require('prismic-dom')
 const logger = require('morgan')
-const errorHandler = require('errorHandler')
+const errorHandler = require('errorhandler')
 const express = require('express')
 const path = require('path')
 
