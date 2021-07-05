@@ -10,20 +10,20 @@ const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 
 const appDir = path.join(__dirname, '../app')
 const stylesDir = path.join(__dirname, '../styles')
-const sharedDir = path.join(__dirname, '../shared')
+const assetsDir = path.join(__dirname, '../assets')
 const nodeDir = 'node_modules'
 
 module.exports = {
   entry: [path.join(appDir, 'index.js'), path.join(stylesDir, 'index.scss')],
   resolve: {
-    modules: [appDir, stylesDir, sharedDir, nodeDir],
+    modules: [appDir, stylesDir, assetsDir, nodeDir],
   },
   plugins: [
     new webpack.DefinePlugin({
       IS_DEVELOPMENT,
     }),
     new CopyWebpackPlugin({
-      patterns: [{from: './shared', to: ''}],
+      patterns: [{from: './assets', to: ''}],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
