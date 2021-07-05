@@ -11,6 +11,7 @@
     "build": "run-p frontend:build backend:build"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.0",
