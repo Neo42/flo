@@ -1,4 +1,3 @@
-import {ColorManager} from 'classes'
 import {About, Collections, Detail, Home} from 'pages'
 import {Loader, Navigation} from 'widgets'
 
