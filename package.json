@@ -8,7 +8,8 @@
     "backend:build": "node backend.js",
     "start": "run-p frontend:dev backend:dev",
     "prepare": "husky install",
-    "build": "run-p frontend:build backend:build"
+    "build": "run-p frontend:build backend:build",
+    "install": "rm -rf public node_modules package-lock.json && npm install"
   },
   "devDependencies": {
     "babel-loader": "^8.2.2",
