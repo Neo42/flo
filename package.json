@@ -4,8 +4,8 @@
   "scripts": {
     "frontend:dev": "webpack serve --progress --config ./webpack/webpack.dev.js",
     "frontend:build": "webpack --progress --config ./webpack/webpack.prod.js",
-    "backend:dev": "node backend.js",
-    "backend:build": "node backend.js",
+    "backend:dev": "node app.js",
+    "backend:build": "node app.js",
     "start": "run-p frontend:dev backend:dev",
     "prepare": "husky install",
     "build": "run-p frontend:build backend:build",
