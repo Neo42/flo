@@ -1,5 +1,5 @@
 import {About, Collections, Detail, Home} from 'pages'
-import {Loader, Navigation} from 'widgets'
+import {Canvas, Loader, Navigation} from 'widgets'
 
 class App {
   constructor() {
@@ -7,6 +7,8 @@ class App {
     this.createLoader()
     this.createPages()
     this.createNavigation()
+    this.createCanvas()
+    this.onResize()
     this.addEventListeners()
     this.listenToAllLinks()
     this.update()
@@ -42,6 +44,10 @@ class App {
       .forEach((img) => img.classList.add('loaded'))
 
     this.page.show()
+  }
+
+  createCanvas() {
+    this.canvas = new Canvas()
   }
 
   addEventListeners() {
@@ -91,8 +97,10 @@ class App {
   }
 
   onResize() {
-    if (!this.page.animations) return
     this.page.onResize()
+    if (this.canvas) {
+      this.canvas.onResize()
+    }
   }
 
   checkPageShowEarly() {
@@ -105,8 +113,9 @@ class App {
   }
 
   update() {
-    this.frame = window.requestAnimationFrame(this.update.bind(this))
     this.page.update()
+    this.canvas.update()
+    this.frame = window.requestAnimationFrame(this.update.bind(this))
   }
 }
 

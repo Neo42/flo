@@ -182,9 +182,11 @@ export class Page extends Component {
     this.scroll.limit =
       this.targetElements.wrapper.clientHeight - window.innerHeight
 
-    this.animations.forEach((animation) => {
-      animation.onResize && animation.onResize()
-    })
+    if (this.animations) {
+      this.animations.forEach((animation) => {
+        animation.onResize && animation.onResize()
+      })
+    }
   }
 
   addEventListeners() {

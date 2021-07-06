@@ -13,7 +13,7 @@ export class AsyncImage extends Widget {
         if (this.rootElement.src) return
 
         this.rootElement.src = this.rootElement.getAttribute('data-src')
-        this.rootElement.onload = this.rootElement.classList.add('loaded')
+        this.rootElement.onload = () => this.rootElement.classList.add('loaded')
       })
     })
 
