@@ -3,11 +3,12 @@ import fragment from 'shaders/plain_fragment.glsl'
 import vertex from 'shaders/plain_vertex.glsl'
 
 export default class Media {
-  constructor({root, geometry, gl, scene, index}) {
+  constructor({root, geometry, gl, scene, sizes, index}) {
     this.gl = gl
     this.index = index
     this.root = root
     this.scene = scene
+    this.sizes = sizes
     this.geometry = geometry
 
     this.createTexture()
@@ -20,7 +21,11 @@ export default class Media {
     this.image = new Image()
     this.image.crossOrigin = 'anonymous'
     this.image.src = this.root.getAttribute('data-src')
-    this.image.onload = () => (this.texture.image = this.image)
+    this.image.onload = () => {
+      this.texture.image = this.image
+      this.onResize({sizes: this.sizes})
+      this.mesh.setParent(this.scene)
+    }
   }
 
   createProgram() {
@@ -39,6 +44,42 @@ export default class Media {
       geometry: this.geometry,
     })
     this.mesh.setParent(this.scene)
-    this.mesh.position.x += this.index * this.mesh.scale.x
+  }
+
+  createBounds() {
+    this.bounds = this.root.getBoundingClientRect()
+    this.updateScale()
+    this.updateX()
+    this.updateY()
+  }
+
+  updateScale() {
+    this.heightRatio = this.bounds.height / window.innerHeight
+    this.widthRatio = this.bounds.width / window.innerWidth
+
+    this.mesh.scale.x = this.sizes.width * this.widthRatio
+    this.mesh.scale.y = this.sizes.height * this.heightRatio
+
+    this.x = this.bounds.left / window.innerWidth
+    this.y = this.bounds.top / window.innerHeight
+  }
+
+  updateX(x = 0) {
+    this.mesh.position.x =
+      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width
+  }
+
+  updateY(y = 0) {
+    this.mesh.position.y =
+      this.sizes.height / 2 - this.mesh.scale.y / 2 - this.y * this.sizes.height
+  }
+
+  update(scroll) {
+    this.updateX(scroll.x)
+    this.updateY(scroll.y)
+  }
+
+  onResize() {
+    this.createBounds()
   }
 }
