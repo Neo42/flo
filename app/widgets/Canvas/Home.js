@@ -2,8 +2,9 @@ import * as ogl from 'ogl'
 import Media from './Media'
 
 export default class Home {
-  constructor({gl, scene}) {
+  constructor({gl, scene, sizes}) {
     this.gl = gl
+    this.sizes = sizes
     this.group = new ogl.Transform()
     this.images = document.querySelectorAll('.home__gallery__media__image')
 
@@ -18,7 +19,7 @@ export default class Home {
   }
 
   createGallery() {
-    Array.from(this.images).map(
+    this.medias = Array.from(this.images).map(
       (image, index) =>
         new Media({
           index,
@@ -26,7 +27,12 @@ export default class Home {
           gl: this.gl,
           geometry: this.geometry,
           scene: this.group,
+          sizes: this.sizes,
         }),
     )
+  }
+
+  onResize({sizes}) {
+    this.medias.forEach((media) => media.onResize({sizes}))
   }
 }
