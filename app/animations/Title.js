@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import {Animation} from 'classes'
+import {Animation} from 'classes/Animation'
 import {calculate, splitText} from 'utils'
 
 export class TitleAnimation extends Animation {

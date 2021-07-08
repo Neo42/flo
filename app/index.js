@@ -59,8 +59,8 @@ class App {
 
     links.forEach(
       (link) =>
-        (link.onclick = (event) => {
-          event.preventDefault()
+        (link.onclick = (e) => {
+          e.preventDefault()
           this.onChange(link.href)
         }),
     )
@@ -68,6 +68,8 @@ class App {
 
   async onChange(url) {
     await this.page.hide()
+
+    this.checkPageShowEarly()
 
     const response = await window.fetch(url)
     if (!response.ok) throw Error(response)
@@ -96,7 +98,18 @@ class App {
 
   onResize() {
     this.page.onResize()
-    this.canvas.onResize()
+    if (this.canvas) {
+      this.canvas.onResize()
+    }
+  }
+
+  checkPageShowEarly() {
+    if (
+      window
+        .getComputedStyle(this.page.rootElement)
+        .getPropertyValue('opacity') === 1
+    )
+      throw Error(`Page.show() shouldn't run this early.`)
   }
 
   update() {
