@@ -3,6 +3,17 @@ import Home from './Home'
 
 export class Canvas {
   constructor() {
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    }
+    this.y = {
+      start: 0,
+      distance: 0,
+      end: 0,
+    }
+
     this.createRenderer()
     this.createCamera()
     this.createScene()
@@ -34,6 +45,7 @@ export class Canvas {
   }
 
   update() {
+    this.home.update()
     this.renderer.render({
       scene: this.scene,
       camera: this.camera,
@@ -58,5 +70,45 @@ export class Canvas {
     if (!this.home) return
 
     this.home.onResize({sizes: this.sizes})
+  }
+
+  onTouchDown(event) {
+    this.isDown = true
+
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+
+    this.home.onTouchDown({
+      x: this.x,
+      y: this.y,
+    })
+  }
+
+  onTouchMove(event) {
+    if (!this.isDown) return
+
+    this.x.end = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.end = event.touches ? event.touches[0].clientY : event.clientY
+
+    this.home.onTouchMove({
+      x: this.x,
+      y: this.y,
+    })
+  }
+
+  onTouchUp(event) {
+    this.isDown = false
+
+    this.x.end = event.changedTouches
+      ? event.changedTouches[0].clientX
+      : event.clientX
+    this.y.end = event.changedTouches
+      ? event.changedTouches[0].clientY
+      : event.clientY
+
+    this.home.onTouchUp({
+      x: this.x,
+      y: this.y,
+    })
   }
 }
