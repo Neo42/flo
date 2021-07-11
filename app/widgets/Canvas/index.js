@@ -22,7 +22,10 @@ export class Canvas {
   }
 
   createRenderer() {
-    this.renderer = new ogl.Renderer()
+    this.renderer = new ogl.Renderer({
+      alpha: true,
+      antialias: true,
+    })
     this.gl = this.renderer.gl
     document.body.appendChild(this.gl.canvas)
   }
@@ -110,5 +113,9 @@ export class Canvas {
       x: this.x,
       y: this.y,
     })
+  }
+
+  onWheel(event) {
+    this.home.onWheel(event)
   }
 }

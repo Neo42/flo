@@ -1,5 +1,4 @@
 import GSAP from 'gsap'
-import normalizeWheel from 'normalize-wheel'
 import Prefix from 'prefix'
 import {AsyncImage, Button, ColorManager, Component} from 'classes'
 import {
@@ -30,7 +29,7 @@ export class Page extends Component {
 
     this.id = id
     this.transformPrefix = Prefix('transform')
-    this.onMouseWheel = this.onMouseWheel.bind(this)
+    this.onWheel = this.onWheel.bind(this)
   }
 
   create() {
@@ -171,9 +170,8 @@ export class Page extends Component {
     })
   }
 
-  onMouseWheel(event) {
-    const {pixelY: normalizedY} = normalizeWheel(event)
-    this.scroll.target += normalizedY
+  onWheel({pixelY}) {
+    this.scroll.target += pixelY
   }
 
   onResize() {
@@ -189,11 +187,7 @@ export class Page extends Component {
     }
   }
 
-  addEventListeners() {
-    window.addEventListener('mousewheel', this.onMouseWheel)
-  }
+  addEventListeners() {}
 
-  removeEventListeners() {
-    window.removeEventListener('mousewheel', this.onMouseWheel)
-  }
+  removeEventListeners() {}
 }

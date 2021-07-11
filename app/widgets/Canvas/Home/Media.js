@@ -1,3 +1,4 @@
+import gsap from 'gsap'
 import * as ogl from 'ogl'
 import fragment from 'shaders/plain_fragment.glsl'
 import vertex from 'shaders/plain_vertex.glsl'
@@ -14,6 +15,11 @@ export default class Media {
     this.createTexture()
     this.createProgram()
     this.createMesh()
+
+    this.extra = {
+      x: 0,
+      y: 0,
+    }
   }
 
   createTexture() {
@@ -43,6 +49,7 @@ export default class Media {
       geometry: this.geometry,
     })
 
+    this.mesh.rotation.x = gsap.utils.random(0.03 * -Math.PI, 0.03 * Math.PI)
     this.mesh.setParent(this.scene)
   }
 
@@ -66,13 +73,19 @@ export default class Media {
   updateX(x = 0) {
     this.x = (this.bounds.left + x) / window.innerWidth
     this.mesh.position.x =
-      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width
+      -this.sizes.width / 2 +
+      this.mesh.scale.x / 2 +
+      this.x * this.sizes.width +
+      this.extra.x
   }
 
   updateY(y = 0) {
     this.y = (this.bounds.top + y) / window.innerHeight
     this.mesh.position.y =
-      this.sizes.height / 2 - this.mesh.scale.y / 2 - this.y * this.sizes.height
+      this.sizes.height / 2 -
+      this.mesh.scale.y / 2 -
+      this.y * this.sizes.height +
+      this.extra.y
   }
 
   update(scroll) {
@@ -80,7 +93,14 @@ export default class Media {
     this.updateY(scroll.y)
   }
 
-  onResize({sizes}) {
+  onResize({sizes, scroll}) {
+    this.extra = {
+      x: 0,
+      y: 0,
+    }
+
     this.createBounds({sizes})
+    this.updateX(scroll.x ?? 0)
+    this.updateY(scroll.y ?? 0)
   }
 }

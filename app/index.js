@@ -1,3 +1,5 @@
+import normalizeWheel from 'normalize-wheel'
+
 import {About, Collections, Detail, Home} from 'pages'
 import {Canvas, Loader, Navigation} from 'widgets'
 
@@ -60,6 +62,8 @@ class App {
     window.addEventListener('touchstart', this.onTouchDown.bind(this))
     window.addEventListener('touchmove', this.onTouchMove.bind(this))
     window.addEventListener('touchend', this.onTouchUp.bind(this))
+
+    window.addEventListener('wheel', this.onWheel.bind(this))
   }
 
   listenToAllLinks() {
@@ -105,6 +109,7 @@ class App {
 
     this.page = this.pages[this.template]
     this.page.create()
+    this.onResize()
     this.page.show()
 
     this.listenToAllLinks()
@@ -117,6 +122,12 @@ class App {
   onResize() {
     this.page.onResize()
     this.canvas.onResize()
+  }
+
+  onWheel(event) {
+    const normalizedWheel = normalizeWheel(event)
+    this.page.onWheel(normalizedWheel)
+    this.canvas.onWheel(normalizedWheel)
   }
 
   update() {
